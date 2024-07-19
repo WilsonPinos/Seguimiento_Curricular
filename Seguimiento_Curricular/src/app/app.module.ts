@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AdminComponent } from './admin/admin.component';
 import { RolesComponent } from './roles/roles.component';
 import { CarreraFormComponent } from './carrera-form/carrera-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CarreraFormComponent } from './carrera-form/carrera-form.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
