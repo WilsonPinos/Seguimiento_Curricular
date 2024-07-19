@@ -1,1 +1,43 @@
-<p>roles works!</p>
+<form>
+    <h1 style="text-align: center;">Roles</h1>
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="nombre_input">
+    </div>
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripcion</label>
+      <input type="text" class="form-control" id="descripcion_input">
+    </div>
+    <button type="submit" class="btn btn-primary">Crear</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">OPCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Docente</td>
+        <td>Ing.Pepito</td>
+        <td>
+            <button type="button" class="btn btn-primary me-2">Editar</button>
+            <button type="button" class="btn btn-danger">Borrar</button>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>xxxxxx</td>
+        <td>xxxxxx</td>
+        <td>
+            <button type="button" class="btn btn-primary me-2">Editar</button>
+            <button type="button" class="btn btn-danger">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
