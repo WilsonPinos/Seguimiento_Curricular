@@ -8,13 +8,15 @@ import { RolesComponent } from './roles/roles.component';
 import { CarreraFormComponent } from './carrera-form/carrera-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PeriodoComponent } from './periodo/periodo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
     RolesComponent,
-    CarreraFormComponent
+    CarreraFormComponent,
+    PeriodoComponent
   ],
   imports: [
     BrowserModule,
