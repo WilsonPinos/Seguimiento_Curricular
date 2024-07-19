@@ -7,6 +7,7 @@ import { Periodo } from './periodo.model';
   providedIn: 'root'
 })
 export class PeriodoService {
+  /*
   private baseUrl = 'http://localhost:8080/api/periodo'; // URL de tu backend
 
   constructor(private http: HttpClient) { }
@@ -26,4 +27,5 @@ export class PeriodoService {
   deletePeriodo(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+    */
 }
