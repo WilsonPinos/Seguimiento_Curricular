@@ -1,68 +1,97 @@
-import { Component } from '@angular/core';
-
-interface Carrera {
-  id: number;
-  nombre: string;
-  descripcion: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { CarreraService } from './carrera-form.service'; 
+import { Carrera } from './carrera.model'; 
 
 @Component({
   selector: 'app-carrera-form',
   templateUrl: './carrera-form.component.html',
   styleUrls: ['./carrera-form.component.css']
 })
-export class CarreraFormComponent {
-  carreras: Carrera[] = [
-    { id: 1, nombre: 'Ingeniería de Sistemas', descripcion: 'ingeniera mmm sistematica de sistemas simestados' },
-    { id: 2, nombre: 'Medicina', descripcion: 'puro paracetamol joven' }
-  ];
-  carrera: Carrera = { id: 0, nombre: '', descripcion: '' };
+export class CarreraFormComponent implements OnInit {
+  carreras: Carrera[] = [];
+  carrera: Carrera = { id: 0, nombre: '', descripcion: '' }; 
   selectedCarrera: Carrera | null = null;
   isEditing: boolean = false;
   editingId: number | null = null;
 
-  onSubmit() {
+  constructor(private carreraService: CarreraService) { }
+
+  ngOnInit(): void {
+    this.obtenerCarreras();
+  }
+
+  obtenerCarreras(): void {
+    this.carreraService.obtenerListaCarreras().subscribe(
+      data => this.carreras = data,
+      error => console.error('Error al obtener carreras:', error)
+    );
+  }
+
+  onSubmit(): void {
+    console.log('onSubmit called');
     if (!this.isEditing) {
-      this.carrera.id = this.carreras.length + 1;
-      this.carreras.push({ ...this.carrera });
+      
+      this.carreraService.crearCarrera(this.carrera).subscribe(
+        data => {
+          console.log('Carrera creada:', data);
+          this.carreras.push(data);
+          this.resetForm();
+        },
+        error => console.error('Error al guardar carrera:', error)
+      );
     } else {
-      const index = this.carreras.findIndex(c => c.id === this.editingId);
-      if (index !== -1) {
-        this.carreras[index] = { ...this.carrera, id: this.editingId! };
-        this.isEditing = false;
-        this.editingId = null;
-      }
-    }
-    this.carrera = { id: 0, nombre: '', descripcion: '' };
-  }
-
-  selectCarrera(carrera: Carrera) {
-    this.selectedCarrera = carrera;
-  }
-
-  onEdit(carrera: Carrera | null) {
-    if (carrera) {
-      this.carrera = { ...carrera };
-      this.isEditing = true;
-      this.editingId = carrera.id;
+   
+      this.carreraService.actualizarCarrera(this.editingId!, this.carrera).subscribe(
+        data => {
+          console.log('Carrera actualizada:', data);
+          const index = this.carreras.findIndex(c => c.id === this.editingId);
+          if (index !== -1) {
+            this.carreras[index] = data;
+          }
+          this.resetForm();
+        },
+        error => console.error('Error al actualizar carrera:', error)
+      );
     }
   }
 
-  onDelete(id: number | undefined) {
-    if (id !== undefined) {
-      this.carreras = this.carreras.filter(c => c.id !== id);
-      this.selectedCarrera = null;
-    }
-  }
-
-  onUpdate() {
+  onUpdate(): void {
     this.onSubmit();
   }
 
-  onCancelEdit() {
+  onCancelEdit(): void {
+    this.resetForm();
+  }
+
+  selectCarrera(carrera: Carrera): void {
+    this.selectedCarrera = carrera;
+  }
+
+  onEdit(carrera: Carrera): void {
+    this.carreraService.obtenerCarreraPorId(carrera.id).subscribe(
+      data => {
+        this.carrera = { ...data };
+        this.isEditing = true;
+        this.editingId = carrera.id;
+      },
+      error => console.error('Error al obtener carrera para editar:', error)
+    );
+  }
+
+  onDelete(id: number): void {
+    this.carreraService.eliminarCarrera(id).subscribe(
+      () => {
+        this.carreras = this.carreras.filter(c => c.id !== id);
+        this.selectedCarrera = null;
+      },
+      error => console.error('Error al eliminar carrera:', error)
+    );
+  }
+
+  private resetForm(): void {
+    this.carrera = { id: 0, nombre: '', descripcion: '' };
     this.isEditing = false;
     this.editingId = null;
-    this.carrera = { id: 0, nombre: '', descripcion: '' };
     this.selectedCarrera = null;
   }
 }

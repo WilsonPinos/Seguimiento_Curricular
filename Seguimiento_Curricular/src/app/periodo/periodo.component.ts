@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PeriodoService } from './periodo.service';
-import { CarreraFormService } from '../carrera-form/carrera-form.service';
+import { CarreraService } from '../carrera-form/carrera-form.service';
 import { Periodo } from './periodo.model';
 import { CarreraFormComponent } from '../carrera-form/carrera-form.component';
 

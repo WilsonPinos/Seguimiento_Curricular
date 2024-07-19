@@ -1,41 +1,40 @@
 <div class="container mt-5">
-    <div class="crud-header">
-      CRUD CARRERAS
-    </div>
-    <form (ngSubmit)="onSubmit()" #carreraForm="ngForm" class="mb-4">
-      <div class="form-group">
-        <label for="nombre">Nombre:</label>
-        <input type="text" class="form-control" id="nombre" required [(ngModel)]="carrera.nombre" name="nombre">
-      </div>
-      <div class="form-group">
-        <label for="descripcion">Descripción:</label>
-        <input type="text" class="form-control" id="descripcion" required [(ngModel)]="carrera.descripcion" name="descripcion">
-      </div>
-      <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing">Guardar</button>
-      <button type="button" class="btn btn-success mr-2" (click)="onUpdate()" *ngIf="isEditing">Actualizar</button>
-      <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
-    </form>
-  
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Acciones</th> 
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let carrera of carreras" [class.table-active]="carrera.id === selectedCarrera?.id" (click)="selectCarrera(carrera)">
-          <td>{{ carrera.id }}</td>
-          <td>{{ carrera.nombre }}</td>
-          <td>{{ carrera.descripcion }}</td>
-          <td>
-            <button class="btn btn-edit btn-sm mr-2" [disabled]="!selectedCarrera" (click)="onEdit(carrera)">Editar</button>
-            <button class="btn btn-danger btn-sm" [disabled]="!selectedCarrera" (click)="onDelete(carrera.id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="crud-header">
+    CRUD CARRERAS
   </div>
-  
+  <form (ngSubmit)="onSubmit()" #carreraForm="ngForm" class="mb-4">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" required [(ngModel)]="carrera.nombre" name="nombre">
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <input type="text" class="form-control" id="descripcion" required [(ngModel)]="carrera.descripcion" name="descripcion">
+    </div>
+    <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing">Guardar</button>
+    <button type="button" class="btn btn-success mr-2" (click)="onUpdate()" *ngIf="isEditing">Actualizar</button>
+    <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
+  </form>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let carrera of carreras" [class.table-active]="carrera.id === selectedCarrera?.id" (click)="selectCarrera(carrera)">
+        <td>{{ carrera.id }}</td>
+        <td>{{ carrera.nombre }}</td>
+        <td>{{ carrera.descripcion }}</td>
+        <td>
+          <button class="btn btn-edit btn-sm mr-2" [disabled]="!selectedCarrera" (click)="onEdit(carrera)">Editar</button>
+          <button class="btn btn-danger btn-sm" [disabled]="!selectedCarrera" (click)="onDelete(carrera.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
