@@ -28,8 +28,8 @@
           </div>
         </div>
 
-        <button class="nav-link active mt-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Roles</button>
-        <button class="nav-link active mt-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Carreras</button>
+        <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/roles" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Roles</button>
+        <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/carreras" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Carreras</button>
         <button class="nav-link active mt-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Cursos</button>
         <button class="nav-link active mt-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Periodos</button>
         <button class="nav-link active mt-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Usuarios</button>
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="content">
-      <app-roles></app-roles>
+      <router-outlet></router-outlet>
     </div>
   </div>
   

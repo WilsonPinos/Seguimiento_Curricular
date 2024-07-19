@@ -21,10 +21,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Docente</td>
-        <td>Ing.Pepito</td>
+      <tr *ngFor="let roles of roles">
+        <th scope="row">{{roles.id}}</th>
+        <td>{{roles.nombre}}</td>
+        <td>{{roles.descripcion}}</td>
         <td>
             <button type="button" class="btn btn-primary me-2">Editar</button>
             <button type="button" class="btn btn-danger">Borrar</button>
