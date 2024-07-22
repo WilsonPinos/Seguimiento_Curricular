@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CarreraService } from './carrera-form.service'; 
+import { CarreraFormService } from './carrera-form.service'; 
 import { Carrera } from './carrera.model'; 
 
 @Component({
@@ -14,7 +14,7 @@ export class CarreraFormComponent implements OnInit {
   isEditing: boolean = false;
   editingId: number | null = null;
 
-  constructor(private carreraService: CarreraService) { }
+  constructor(private carreraService: CarreraFormService) { }
 
   ngOnInit(): void {
     this.obtenerCarreras();
