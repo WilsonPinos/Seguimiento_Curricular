@@ -9,6 +9,8 @@ import { CarreraFormComponent } from './carrera-form/carrera-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PeriodoComponent } from './periodo/periodo.component';
+import { CursoService } from './curso/curso.service';
+import { CursosComponent } from './curso/curso.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { PeriodoComponent } from './periodo/periodo.component';
     AdminComponent,
     RolesComponent,
     CarreraFormComponent,
-    PeriodoComponent
+    PeriodoComponent,
+    CursosComponent
   ],
   imports: [
     BrowserModule,
