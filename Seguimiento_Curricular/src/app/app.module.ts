@@ -18,7 +18,7 @@ import { ActividadesComponent } from './actividades/actividades.component';
     AdminComponent,
     RolesComponent,
     CarreraFormComponent,
-    PeriodoComponent, // Asegúrate de declarar el componente Periodo aquí
+    PeriodoComponent, 
     CursosComponent,
     ActividadesComponent
   ],
