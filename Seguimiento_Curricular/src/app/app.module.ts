@@ -19,7 +19,7 @@ import { ActividadesComponent } from './actividades/actividades.component';
     AdminComponent,
     RolesComponent,
     CarreraFormComponent,
-    PeriodoComponent,
+    //PeriodoComponent,
     CursosComponent,
     ActividadesComponent
   ],
