@@ -32,24 +32,24 @@ export class RolesComponent implements OnInit{
         
         this.RolesService.crearRoles(this.roles).subscribe(
           data => {
-            console.log('Carrera creada:', data);
+            console.log('Rol creado:', data);
             this.roless.push(data);
             this.resetForm();
           },
-          error => console.error('Error al guardar carrera:', error)
+          error => console.error('Error al guardar rol:', error)
         );
       } else {
      
         this.RolesService.actualizarRoles(this.editingId!, this.roles).subscribe(
           data => {
-            console.log('Carrera actualizada:', data);
+            console.log('Rol actualizado:', data);
             const index = this.roless.findIndex(c => c.id === this.editingId);
             if (index !== -1) {
               this.roless[index] = data;
             }
             this.resetForm();
           },
-          error => console.error('Error al actualizar carrera:', error)
+          error => console.error('Error al actualizar rol:', error)
         );
       }
     }
@@ -73,7 +73,7 @@ export class RolesComponent implements OnInit{
           this.isEditing = true;
           this.editingId = roles.id;
         },
-        error => console.error('Error al obtener carrera para editar:', error)
+        error => console.error('Error al obtener rol para editar:', error)
       );
     }
   
@@ -83,7 +83,7 @@ export class RolesComponent implements OnInit{
           this.roless = this.roless.filter(c => c.id !== id);
           this.selectedRoles = null;
         },
-        error => console.error('Error al eliminar carrera:', error)
+        error => console.error('Error al eliminar rol:', error)
       );
     }
   

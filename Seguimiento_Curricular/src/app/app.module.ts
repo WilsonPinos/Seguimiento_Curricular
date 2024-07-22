@@ -12,6 +12,7 @@ import { PeriodoComponent } from './periodo/periodo.component';
 import { CursoService } from './curso/curso.service';
 import { CursosComponent } from './curso/curso.component';
 import { ActividadesComponent } from './actividades/actividades.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { ActividadesComponent } from './actividades/actividades.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
