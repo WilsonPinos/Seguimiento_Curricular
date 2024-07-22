@@ -9,7 +9,6 @@ import { CarreraFormComponent } from './carrera-form/carrera-form.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PeriodoComponent } from './periodo/periodo.component';
-import { CursoService } from './curso/curso.service';
 import { CursosComponent } from './curso/curso.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 
@@ -19,7 +18,7 @@ import { ActividadesComponent } from './actividades/actividades.component';
     AdminComponent,
     RolesComponent,
     CarreraFormComponent,
-    //PeriodoComponent,
+    PeriodoComponent, // Asegúrate de declarar el componente Periodo aquí
     CursosComponent,
     ActividadesComponent
   ],

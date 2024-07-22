@@ -1,8 +1,9 @@
 export class Periodo {
-    id?: number;
-    nombre: string;
-    fecha_inicio: Date;
-    fecha_fin: Date;
-    carrera_id: number;
-  }
-  
+  constructor(
+    public id?: number,
+    public nombre?: string,
+    public fecha_inicio?: Date,
+    public fecha_fin?: Date,
+    public carrera_id?: number
+  ) {}
+}

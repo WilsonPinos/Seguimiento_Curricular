@@ -1,52 +1,73 @@
-<!--<div class="container">
-    <h2>Periodo</h2>
-    <form (submit)="onSubmit()">
-      <div>
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" [(ngModel)]="periodo.nombre" name="nombre" required>
-      </div>
-      <div>
-        <label for="fechaInicio">Fecha de Inicio</label>
-        <input type="date" id="fechaInicio" [(ngModel)]="periodo.fecha_inicio" name="fechaInicio" required>
-      </div>
-      <div>
-        <label for="fechaFin">Fecha de Fin</label>
-        <input type="date" id="fechaFin" [(ngModel)]="periodo.fecha_fin" name="fechaFin" required>
-      </div>
-      <div>
-        <label for="carrera">Carrera</label>
-        <select id="carrera" [(ngModel)]="periodo.carrera_id" name="carrera" required>
-          <option *ngFor="let carrera of carreras" [value]="carrera.id">{{ carrera.nombre }}</option>
-        </select>
-      </div>
-      <button type="submit">Crear</button>
-    </form>
-  
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Fecha de Inicio</th>
-          <th>Fecha de Fin</th>
-          <th>Carrera</th>
-          <th>Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let periodo of periodos">
-          <td>{{ periodo.id }}</td>
-          <td>{{ periodo.nombre }}</td>
-          <td>{{ periodo.fecha_inicio | date }}</td>
-          <td>{{ periodo.fecha_fin | date }}</td>
-          <td>{{ getCarreraNombre(periodo.carrera_id) }}</td>
-          <td>
-            <button (click)="editPeriodo(periodo)">Editar</button>
-            <button (click)="deletePeriodo(periodo.id)">Borrar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
--->
-  
+<div class="container">
+  <h2 class="title">Periodo</h2>
+  <form (ngSubmit)="onSubmit()" class="form">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="periodo.nombre" name="nombre" required>
+    </div>
+    <div class="form-group">
+      <label for="fechaInicio">Fecha de Inicio:</label>
+      <input type="date" id="fechaInicio" [(ngModel)]="periodo.fecha_inicio" name="fechaInicio" required>
+    </div>
+    <div class="form-group">
+      <label for="fechaFin">Fecha de Fin:</label>
+      <input type="date" id="fechaFin" [(ngModel)]="periodo.fecha_fin" name="fechaFin" required>
+    </div>
+    <div class="form-group">
+      <label for="carrera">Carrera:</label>
+      <select id="carrera" [(ngModel)]="periodo.carrera_id" name="carrera" required>
+        <option *ngFor="let carrera of carreras" [value]="carrera.id">{{ carrera.nombre }}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear</button>
+  </form>
+
+  <h2 class="title">Lista de Periodos</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Fin</th>
+        <th>Carrera</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let periodo of periodos">
+        <td>{{ periodo.id }}</td>
+        <td>{{ periodo.nombre }}</td>
+        <td>{{ periodo.fecha_inicio | date }}</td>
+        <td>{{ periodo.fecha_fin | date }}</td>
+        <td>{{ getCarreraNombre(periodo.carrera_id) }}</td>
+        <td>
+          <button (click)="editPeriodo(periodo)" class="btn btn-warning">Editar</button>
+          <button (click)="deletePeriodo(periodo.id!)" class="btn btn-danger">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="title">Periodo-Carrera</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Periodo ID</th>
+        <th>Carrera ID</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let periodoCarrera of periodoCarreras">
+        <td>{{ periodoCarrera.id }}</td>
+        <td>{{ periodoCarrera.periodo_id }}</td>
+        <td>{{ periodoCarrera.carrera_id }}</td>
+        <td>
+          <button (click)="deletePeriodoCarrera(periodoCarrera.id!)" class="btn btn-danger">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
