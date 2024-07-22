@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PeriodoComponent } from './periodo/periodo.component';
 import { CursoService } from './curso/curso.service';
 import { CursosComponent } from './curso/curso.component';
+import { ActividadesComponent } from './actividades/actividades.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CursosComponent } from './curso/curso.component';
     RolesComponent,
     CarreraFormComponent,
     PeriodoComponent,
-    CursosComponent
+    CursosComponent,
+    ActividadesComponent
   ],
   imports: [
     BrowserModule,
