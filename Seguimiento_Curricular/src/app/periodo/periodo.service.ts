@@ -7,25 +7,23 @@ import { Periodo } from './periodo.model';
   providedIn: 'root'
 })
 export class PeriodoService {
-  /*
-  private baseUrl = 'http://localhost:8080/api/periodo'; // URL de tu backend
+  private baseURL = 'http://localhost:8080/api/periodos';
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   getPeriodos(): Observable<Periodo[]> {
-    return this.http.get<Periodo[]>(`${this.baseUrl}`);
+    return this.httpClient.get<Periodo[]>(this.baseURL);
   }
 
   createPeriodo(periodo: Periodo): Observable<Periodo> {
-    return this.http.post<Periodo>(`${this.baseUrl}`, periodo);
+    return this.httpClient.post<Periodo>(this.baseURL, periodo);
   }
 
   updatePeriodo(id: number, periodo: Periodo): Observable<Periodo> {
-    return this.http.put<Periodo>(`${this.baseUrl}/${id}`, periodo);
+    return this.httpClient.put<Periodo>(`${this.baseURL}/${id}`, periodo);
   }
 
   deletePeriodo(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.httpClient.delete<void>(`${this.baseURL}/${id}`);
   }
-    */
 }
