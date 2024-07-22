@@ -6,7 +6,7 @@ import { Carrera } from './carrera.model';
 @Injectable({
   providedIn: 'root'
 })
-export class CarreraService {
+export class CarreraFormService {
   private baseURL = 'http://localhost:8080/api/carreras'; 
 
   constructor(private httpClient: HttpClient) { }
