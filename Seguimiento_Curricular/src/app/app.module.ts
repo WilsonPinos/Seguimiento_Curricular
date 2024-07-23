@@ -13,6 +13,7 @@ import { CursoService } from './curso/curso.service';
 import { CursosComponent } from './curso/curso.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { DatePipe } from '@angular/common';
+import { DirectorComponent } from './director/director.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DatePipe } from '@angular/common';
     CarreraFormComponent,
     PeriodoComponent, 
     CursosComponent,
-    ActividadesComponent
+    ActividadesComponent,
+    DirectorComponent
   ],
   imports: [
     BrowserModule,

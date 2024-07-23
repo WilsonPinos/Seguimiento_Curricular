@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <form>
   <h1 style="text-align: center;">Curso</h1>
@@ -12,12 +11,25 @@
   </div>
   <div class="mb-3">
     <label for="curso_id_carrera" class="form-label">ID Carrera</label>
-    <input type="text" class="form-control" id="curso_id_carrera_input">
-  </div>
-  <div class="mb-3">
+    <select class="form-control" id="curso_id_carrera_select">
+        <option value="">Selecciona una carrera</option>
+        <option value="1">Carrera 1</option>
+        <option value="2">Carrera 2</option>
+        <option value="3">Carrera 3</option>
+        <!-- Agrega más opciones según sea necesario -->
+    </select>
+</div>
+<div class="mb-3">
     <label for="curso_id_usuario" class="form-label">ID Usuario</label>
-    <input type="text" class="form-control" id="curso_id_usuario_input">
-  </div>
+    <select class="form-control" id="curso_id_usuario_select">
+        <option value="">Selecciona un usuario</option>
+        <option value="1">Usuario 1</option>
+        <option value="2">Usuario 2</option>
+        <option value="3">Usuario 3</option>
+        <!-- Agrega más opciones según sea necesario -->
+    </select>
+</div>
+
   <button type="submit" class="btn btn-primary">Crear</button>
 </form>
 <html>
