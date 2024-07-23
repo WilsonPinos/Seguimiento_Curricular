@@ -20,7 +20,7 @@ import { DatePipe } from '@angular/common';
     AdminComponent,
     RolesComponent,
     CarreraFormComponent,
-    PeriodoComponent,
+    PeriodoComponent, 
     CursosComponent,
     ActividadesComponent
   ],
