@@ -5,14 +5,16 @@ import { CarreraFormComponent } from './carrera-form/carrera-form.component';
 import { CursosComponent } from './curso/curso.component';
 import { PeriodoComponent } from './periodo/periodo.component';
 import { ActividadesComponent } from './actividades/actividades.component';
+import { DirectorComponent } from './director/director.component';
 
 const routes: Routes = [
   { path: 'roles', component: RolesComponent },
-  { path: '', redirectTo: '/roles', pathMatch: 'full' },
+  //{ path: '', redirectTo: '/roles', pathMatch: 'full' },
   { path: 'carreras', component: CarreraFormComponent },
   { path: 'cursos', component: CursosComponent },
   { path: 'actividades', component: ActividadesComponent },
-  { path: 'periodos', component: PeriodoComponent }
+  { path: 'periodos', component: PeriodoComponent },
+  { path: 'director', component: DirectorComponent }
 ];
 
 @NgModule({
