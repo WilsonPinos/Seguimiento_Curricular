@@ -1,57 +1,80 @@
 <form (ngSubmit)="onSubmit()" #carreraForm="ngForm">
-    <h1 style="text-align: center;">Actividades</h1>
-    <div class="mb-3">
-      <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" class="form-control" id="nombre_input" required [(ngModel)]="actividades.nombre" name="nombre">
+  <h1 style="text-align: center;">Actividades</h1>
 
+  <div class="mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="nombre_input" required [(ngModel)]="actividades.nombre" name="nombre">
+
+  </div>
+  <div class="mb-3">
+    <label for="descripcion" class="form-label">Descripcion</label>
+    <input type="text" class="form-control" id="descripcion_input" required [(ngModel)]="actividades.descripcion" name="descripcion">
+  </div>
+  <div class="mb-3">
+      <label for="fecha_entregado" class="form-label">Fecha entrega</label>
+      <input type="datetime-local" class="form-control" id="descripcion_input" required [(ngModel)]="actividades.fecha_entregado" name="fecha_entregado">
     </div>
     <div class="mb-3">
-      <label for="descripcion" class="form-label">Descripcion</label>
-      <input type="text" class="form-control" id="descripcion_input" required [(ngModel)]="actividades.descripcion" name="descripcion">
+      <label for="fecha_entrega_max" class="form-label">Fecha Maxima</label>
+      <input type="datetime-local" class="form-control" id="descripcion_input" required [(ngModel)]="actividades.fecha_entrega_max" name="fecha_entrega_max">
     </div>
     <div class="mb-3">
-        <label for="fecha_entregado" class="form-label">Fecha entrega</label>
-        <input type="datetime-local" class="form-control" id="descripcion_input" required [(ngModel)]="actividades.fecha_entregado" name="fecha_entregado">
-      </div>
-      <div class="mb-3">
-        <label for="fecha_entrega_max" class="form-label">Fecha Maxima</label>
-        <input type="datetime-local" class="form-control" id="descripcion_input" required [(ngModel)]="actividades.fecha_entrega_max" name="fecha_entrega_max">
-      </div>
-      <div class="mb-3">
-        <label for="ruta_pdf" class="form-label">Subir archivo</label>
-        <input type="text" class="form-control" id="descripcion_input" required [(ngModel)]="actividades.ruta_pdf" name="ruta_pdf">
-      </div>
+      <label for="fecha_entrega_max" class="form-label">Rol</label>
+      <select class="form-select" id="rol_id" required [(ngModel)]="actividades.rol_id" name="rol_id">
+      <option *ngFor="let roles of roless" [value]="roles.id">{{ roles.nombre }}</option>
+    </select>
+    </div>
+    <div class="mb-3">
+      <label for="fecha_entrega_max" class="form-label">Periodo</label>
+      <select class="form-select" id="periodo_id" required [(ngModel)]="actividades.periodo_id" name="periodo_id">
+      <option *ngFor="let periodo of periodos" [value]="periodo.id">{{ periodo.nombre }}</option>
+    </select>
+    </div>
+    <label class="form-label">Subir archivo</label>
+    <div class="mb-3 d-flex align-items-center" >
+      <input type="file" class="form-control" style="margin-right: 10px;" id="ruta_pdf" (change)="onFileChange($event)" #fileInput>
+      <button type="button" class="btn btn-primary" (click)="quitarSeleccion()">Quitar seleccion</button>
+    </div>
+    <div *ngIf="currentFileName && isEditing">
+      <small>Archivo actual: {{ currentFileName }}</small>
+  </div>     
+  <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing" >Guardar</button>
+  <button type="button" class="btn btn-success mr-2 me-2" (click)="onUpdate()" *ngIf="isEditing">Actualizar</button>
+        <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
+</form>
 
-
-    <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing">Guardar</button>
-    <button type="button" class="btn btn-success mr-2 me-2" (click)="onUpdate()" *ngIf="isEditing">Actualizar</button>
-          <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
-  </form>
-
-  <table class="table table-striped">
-    <thead class="thead-dark">
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Descripcion</th>
-        <th>Fecha de entrega</th>
-        <th>Fecha maxima</th>
-        <th>Pdf</th>
-        <th>OPCIONES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let actividades of actividadess"  [class.table-active]="actividades.id === selectedActividades?.id" (click)="selectActividades(actividades)">
-        <td>{{actividades.id}}</td>
-        <td>{{actividades.nombre}}</td>
-        <td>{{actividades.descripcion}}</td>
-        <td>{{formatFecha(actividades.fecha_entregado)}}</td>
-        <td>{{formatFecha(actividades.fecha_entrega_max)}}</td>
-        <td>{{actividades.ruta_pdf}}</td>
-        <td>
-          <button class="btn btn-primary me-2" [disabled]="!selectedActividades" (click)="onEdit(actividades)">Editar</button>
-          <button class="btn btn-danger" [disabled]="!selectedActividades" (click)="onDelete(actividades.id)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>Fecha de entrega</th>
+      <th>Fecha maxima</th>
+      <th>Rol</th>
+      <th>Entregado</th>
+      <th>Archivo entregado</th>
+      <th>Periodo</th>
+      <th>Pdf</th>
+      <th>OPCIONES</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let actividades of actividadess"  [class.table-active]="actividades.id === selectedActividades?.id" (click)="selectActividades(actividades)">
+      <td>{{actividades.id}}</td>
+      <td>{{actividades.nombre}}</td>
+      <td>{{actividades.descripcion}}</td>
+      <td>{{formatFecha(actividades.fecha_entregado)}}</td>
+      <td>{{formatFecha(actividades.fecha_entrega_max)}}</td>
+      <td>{{actividades.rol_id}}</td>
+      <td>{{actividades.activo}}</td>
+      <td>{{actividades.ruta_subido}}</td>
+      <td>{{actividades.periodo_id}}</td>
+      <button (click)="downloadFile(actividades)" class="btn btn-primary active mt-2">{{actividades.ruta_pdf}}</button>
+      <td>
+        <button class="btn btn-primary me-2" [disabled]="!selectedActividades" (click)="onEdit(actividades)">Editar</button>
+        <button class="btn btn-danger" [disabled]="!selectedActividades" (click)="onDelete(actividades.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

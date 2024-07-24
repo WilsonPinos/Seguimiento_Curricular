@@ -7,7 +7,7 @@ import { Periodo } from './periodo.model';
   providedIn: 'root'
 })
 export class PeriodoService {
-  private baseURL = 'http://localhost:8080/api/periodos';
+  private baseURL = 'http://localhost:8080/api/periodo';
 
   constructor(private httpClient: HttpClient) { }
 
