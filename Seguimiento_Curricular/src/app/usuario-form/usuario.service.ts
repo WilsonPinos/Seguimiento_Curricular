@@ -8,40 +8,14 @@ import { Usuario } from './usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private baseUrl = 'http://localhost:8080/api/usuarios'; 
+  private baseUrl = 'http://localhost:8080/api/usuarios';
 
   constructor(private http: HttpClient) { }
 
-  obtenerListaUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.baseUrl).pipe(
-      catchError(this.handleError)
-    );
-  }
-
   guardarUsuario(usuario: Usuario): Observable<Usuario> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Usuario>(this.baseUrl, usuario, { headers }).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  obtenerUsuarioPorId(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.baseUrl}/${id}`).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  actualizarUsuario(id: number, usuario: Usuario): Observable<Usuario> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<Usuario>(`${this.baseUrl}/${id}`, usuario, { headers }).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  eliminarUsuario(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`).pipe(
-      catchError(this.handleError)
-    );
+    return this.http.post<Usuario>(this.baseUrl, usuario, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

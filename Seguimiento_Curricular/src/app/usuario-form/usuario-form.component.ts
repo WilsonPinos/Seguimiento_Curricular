@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from './usuario.service';
 import { Usuario } from '../usuario-form/usuario.model';
-import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-usuario-form',
   templateUrl: './usuario-form.component.html',
   styleUrls: ['./usuario-form.component.css']
 })
 export class UsuarioFormComponent {
-  usuario: Usuario = { 
-    nombre: '', 
-    apellido: '', 
-    email: '', 
-    telefono: '', 
-    fecha_nacimiento: new Date(), 
-    cedula: '' 
+  usuario: Usuario = {
+    id: undefined,
+    nombre: '',
+    apellido: '',
+    email: '',
+    telefono: '',
+    fecha_nacimiento: new Date(),
+    cedula: ''
   };
 
-  constructor(private usuarioService: UsuarioService, private datePipe:DatePipe) { }
+  constructor(private usuarioService: UsuarioService) { }
 
   guardarUsuario(): void {
     console.log('Datos del usuario antes de enviar:', this.usuario);
@@ -32,13 +33,14 @@ export class UsuarioFormComponent {
   }
 
   private resetForm(): void {
-    this.usuario = { 
-      nombre: '', 
-      apellido: '', 
-      email: '', 
-      telefono: '', 
-      fecha_nacimiento: new Date(), 
-      cedula: '' 
+    this.usuario = {
+      id: undefined,
+      nombre: '',
+      apellido: '',
+      email: '',
+      telefono: '',
+      fecha_nacimiento: new Date(),
+      cedula: ''
     };
   }
 }

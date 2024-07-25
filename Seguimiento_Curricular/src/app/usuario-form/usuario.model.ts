@@ -1,9 +1,9 @@
 export interface Usuario {
-    nombre: string;
-    apellido: string;
-    email: string;
-    telefono: string;
-    fecha_nacimiento: Date; // Asegúrate de que este campo sea de tipo Date
-    cedula: string;
-  }
-  
+  id?: number; // Angular usa number que puede representar long en TypeScript
+  nombre: string;
+  apellido: string;
+  email: string;
+  telefono: string;
+  fecha_nacimiento: Date;
+  cedula: string;
+}
