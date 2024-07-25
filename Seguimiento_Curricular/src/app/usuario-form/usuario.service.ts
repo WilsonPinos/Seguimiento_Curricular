@@ -12,6 +12,11 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
+  listarUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.baseUrl)
+      .pipe(catchError(this.handleError));
+  }
+
   guardarUsuario(usuario: Usuario): Observable<Usuario> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Usuario>(this.baseUrl, usuario, { headers })
