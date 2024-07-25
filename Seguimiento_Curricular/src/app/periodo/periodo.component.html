@@ -54,16 +54,16 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Periodo ID</th>
-        <th>Carrera ID</th>
+        <th>Periodo</th>
+        <th>Carrera</th>
         <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let periodoCarrera of periodoCarreras">
         <td>{{ periodoCarrera.id }}</td>
-        <td>{{ periodoCarrera.periodo_id }}</td>
-        <td>{{ periodoCarrera.carrera_id }}</td>
+        <td>{{ getPeriodoNombre(periodoCarrera.periodo_id) }}</td>
+        <td>{{ getCarreraNombre(periodoCarrera.carrera_id) }}</td>
         <td>
           <button (click)="deletePeriodoCarrera(periodoCarrera.id!)" class="btn btn-danger">Borrar</button>
         </td>

@@ -7,7 +7,7 @@ import { PeriodoCarrera } from './periodo-carrera.model';
   providedIn: 'root'
 })
 export class PeriodoCarreraService {
-  private baseURL = 'http://localhost:8080/api/periodo-carreras';
+  private baseURL = 'http://localhost:8080/api/periodo_Carreras';
 
   constructor(private httpClient: HttpClient) { }
 

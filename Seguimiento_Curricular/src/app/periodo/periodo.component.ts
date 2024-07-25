@@ -84,6 +84,12 @@ export class PeriodoComponent implements OnInit {
     });
   }
 
+  getPeriodoNombre(id?: number): string {
+    const periodo = this.periodos.find(p => p.id === id);
+    return periodo ? periodo.nombre || '' : '';
+  }
+  
+
   getCarreraNombre(id?: number): string {
     const carrera = this.carreras.find(c => c.id === id);
     return carrera ? carrera.nombre : '';
