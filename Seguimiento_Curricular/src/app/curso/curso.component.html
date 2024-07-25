@@ -1,81 +1,61 @@
-<!DOCTYPE html>
-<form>
+<form (ngSubmit)="onSubmit()" #carreraForm="ngForm">
   <h1 style="text-align: center;">Curso</h1>
+
   <div class="mb-3">
     <label for="curso_nombre" class="form-label">Nombre</label>
-    <input type="text" class="form-control" id="curso_nombre_input">
+    <input type="text" class="form-control" id="curso_nombre_input" required [(ngModel)]="curso.nombre" name="nombre">
   </div>
+
   <div class="mb-3">
     <label for="curso_descripcion" class="form-label">Descripcion</label>
-    <input type="text" class="form-control" id="curso_descripcion_input">
+    <input type="text" class="form-control" id="curso_descripcion_input" required [(ngModel)]="curso.descripcion"
+      name="descripcion">
   </div>
   <div class="mb-3">
-    <label for="curso_id_carrera" class="form-label">ID Carrera</label>
-    <select class="form-control" id="curso_id_carrera_select">
-        <option value="">Selecciona una carrera</option>
-        <option value="1">Carrera 1</option>
-        <option value="2">Carrera 2</option>
-        <option value="3">Carrera 3</option>
-        <!-- Agrega más opciones según sea necesario -->
+    <label for="usuario_id" class="form-label">Usuario</label>
+    <select class="form-select" id="usuario_id" required [(ngModel)]="curso.usuario_id" name="usuario_id">
+      <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.nombre }}</option>
     </select>
-</div>
-<div class="mb-3">
-    <label for="curso_id_usuario" class="form-label">ID Usuario</label>
-    <select class="form-control" id="curso_id_usuario_select">
-        <option value="">Selecciona un usuario</option>
-        <option value="1">Usuario 1</option>
-        <option value="2">Usuario 2</option>
-        <option value="3">Usuario 3</option>
-        <!-- Agrega más opciones según sea necesario -->
-    </select>
-</div>
-
-  <button type="submit" class="btn btn-primary">Crear</button>
-</form>
-<html>
-<head>
-  <title>Curso Table</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-  <div class="container mt-4">
-      
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Curso ID</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Descripcion</th>
-          <th scope="col">ID Carrera</th>
-          <th scope="col">ID Usuario</th>
-          <th scope="col">OPCIONES</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Curso 1</td>
-          <td>Descripción 1</td>
-          <td>101</td>
-          <td>1001</td>
-          <td>
-            <button type="button" class="btn btn-primary me-2">Editar</button>
-            <button type="button" class="btn btn-danger">Borrar</button>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Curso 2</td>
-          <td>Descripción 2</td>
-          <td>102</td>
-          <td>1002</td>
-          <td>
-            <button type="button" class="btn btn-primary me-2">Editar</button>
-            <button type="button" class="btn btn-danger">Borrar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-</body>
-</html>
+
+
+  <div class="mb-3">
+    <label for="carrera_id" class="form-label">Carrera</label>
+    <select class="form-select" id="carrera_id" required [(ngModel)]="curso.carrera_id" name="carrera_id">
+      <option *ngFor="let carrera of carreras" [value]="carrera.id">{{ carrera.nombre }}</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing">Guardar</button>
+  <button type="button" class="btn btn-success mr-2" (click)="onUpdate()" *ngIf="isEditing">Actualizar</button>
+  <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
+
+
+
+</form>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Usuario</th>
+      <th>Carrera</th>
+      <th>Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let curso of cursos" [class.table-active]="curso.id === selectedCurso?.id"
+      (click)="selectCursos(curso)">
+      <td>{{curso.id}}</td>
+      <td>{{curso.nombre}}</td>
+      <td>{{curso.descripcion}}</td>
+      <td>{{curso.usuario_id}}</td>
+      <td>{{curso.carrera_id}}</td>
+      <td>
+        <button class="btn btn-primary me-2" [disabled]="!selectedCurso" (click)="onEdit(curso)">Editar</button>
+        <button class="btn btn-danger" [disabled]="!selectedCurso" (click)="onDelete(curso.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
