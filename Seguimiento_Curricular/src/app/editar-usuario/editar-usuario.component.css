@@ -1,0 +1,15 @@
+/* Estilos para el botón de cancelar */
+.btn-cancelar {
+  background-color: #dc3545; /* Color rojo */
+  color: white;
+  border: none;
+}
+
+.btn-cancelar:hover {
+  background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+}
+
+/* Espaciado entre botones */
+.btn-primary, .btn-cancelar {
+  margin-right: 10px;
+}

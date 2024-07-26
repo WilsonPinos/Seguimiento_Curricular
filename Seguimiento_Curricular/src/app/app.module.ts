@@ -15,7 +15,7 @@ import { ActividadesComponent } from './actividades/actividades.component';
 import { DatePipe } from '@angular/common';
 import { DirectorComponent } from './director/director.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
-
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
     ActividadesComponent,
     DirectorComponent,
     UsuarioFormComponent,
+    EditarUsuarioComponent
   
   ],
   imports: [
