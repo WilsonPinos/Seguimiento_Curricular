@@ -1,26 +1,43 @@
-import { Injectable } from '@angular/core';
+
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 import { Curso } from './curso';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService {
-  private baseURL = 'http://localhost:8080/api/curso';
+
+  private baseUrl = "http://localhost:8080/api/cursos"
+
+
 
   constructor(private httpClient: HttpClient) { }
 
-  obtenerListaCursos(): Observable<Curso[]> {
-    return this.httpClient.get<Curso[]>(`${this.baseURL}`);
+  obtenerListaCurso(): Observable<Curso[]> {
+    return this.httpClient.get<Curso[]>(`${this.baseUrl}`);
+
   }
 
-   //Métodos para editar y borrar cursos pueden ser agregados aquí
-   editarCurso(curso: Curso): Observable<Object> {
-     return this.httpClient.put(`${this.baseURL}/${curso.curso_id}`, curso);
+  crearCurso(curso: Curso): Observable<Curso> {
+    return this.httpClient.post<Curso>(this.baseUrl, curso);
   }
 
-   borrarCurso(curso_id: number): Observable<Object> {
-    return this.httpClient.delete(`${this.baseURL}/${curso_id}`);
-   }
+  obtenerCursoId(id: number): Observable<Curso> {
+    return this.httpClient.get<Curso>(`${this.baseUrl}/${id}`);
+  }
+
+  actualizarcurso(id: number, curso: Curso): Observable<Curso> {
+    return this.httpClient.put<Curso>(`${this.baseUrl}/${id}`, curso);
+  }
+
+  eliminarcurso(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+
+
+
 }

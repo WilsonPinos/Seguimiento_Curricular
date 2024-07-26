@@ -14,6 +14,8 @@ import { CursosComponent } from './curso/curso.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { DatePipe } from '@angular/common';
 import { DirectorComponent } from './director/director.component';
+import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { DirectorComponent } from './director/director.component';
     PeriodoComponent, 
     CursosComponent,
     ActividadesComponent,
-    DirectorComponent
+    DirectorComponent,
+    UsuarioFormComponent,
+    EditarUsuarioComponent
+  
   ],
   imports: [
     BrowserModule,
