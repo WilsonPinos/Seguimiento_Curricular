@@ -16,6 +16,9 @@ import { DatePipe } from '@angular/common';
 import { DirectorComponent } from './director/director.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.componen
     ActividadesComponent,
     DirectorComponent,
     UsuarioFormComponent,
-    EditarUsuarioComponent
+    EditarUsuarioComponent,
+    RegisterComponent,
+    LoginComponent,
+    HomeComponent
   
   ],
   imports: [

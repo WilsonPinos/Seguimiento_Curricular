@@ -1,0 +1,19 @@
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1 text-white">LOGIN DE USUARIO</span>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Login</h2>
+        <form (ngSubmit)="onLogin()">
+            <div class="mb-3">
+                <label for="id" class="form-label">ID</label>
+                <input type="number" class="form-control" id="id" [(ngModel)]="id" name="id" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <button class="btn btn-secondary mt-3" (click)="goToRegister()">Registrarse</button>
+    </div>
+</div>
