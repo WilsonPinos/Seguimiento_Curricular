@@ -15,7 +15,8 @@ export class UsuarioFormComponent {
     email: '',
     telefono: '',
     fecha_nacimiento: new Date(),
-    cedula: ''
+    cedula: '',
+    rol_id: undefined // Asegúrate de que el rol_id esté presente
   };
 
   constructor(private usuarioService: UsuarioService) { }
@@ -40,7 +41,8 @@ export class UsuarioFormComponent {
       email: '',
       telefono: '',
       fecha_nacimiento: new Date(),
-      cedula: ''
+      cedula: '',
+      rol_id: undefined
     };
   }
 }

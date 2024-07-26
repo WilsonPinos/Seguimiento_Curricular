@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CarreraFormService } from './carrera-form.service'; 
+import { UsuarioService } from '../usuario.service';
 import { Carrera } from './carrera.model'; 
+import { Usuario } from '../usuario-form/usuario.model';
 
 @Component({
   selector: 'app-carrera-form',
@@ -9,48 +11,79 @@ import { Carrera } from './carrera.model';
 })
 export class CarreraFormComponent implements OnInit {
   carreras: Carrera[] = [];
-  carrera: Carrera = { id: 0, nombre: '', descripcion: '' }; 
+  carrera: Carrera = { id: 0, nombre: '', descripcion: '', usuario_id: 0 }; 
   selectedCarrera: Carrera | null = null;
   isEditing: boolean = false;
   editingId: number | null = null;
+  usuarios: Usuario[] = []; // Lista de usuarios
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
-  constructor(private carreraService: CarreraFormService) { }
+  constructor(
+    private carreraService: CarreraFormService,
+    private usuarioService: UsuarioService
+  ) { }
 
   ngOnInit(): void {
     this.obtenerCarreras();
+    this.obtenerUsuariosDirectores(); // Cambiado para obtener solo directores
   }
 
   obtenerCarreras(): void {
+    this.isLoading = true;
     this.carreraService.obtenerListaCarreras().subscribe(
-      data => this.carreras = data,
-      error => console.error('Error al obtener carreras:', error)
+      data => {
+        this.carreras = data;
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Error al obtener carreras:', error);
+        this.errorMessage = 'Error al obtener la lista de carreras.';
+        this.isLoading = false;
+      }
+    );
+  }
+
+  obtenerUsuariosDirectores(): void {
+    this.usuarioService.obtenerUsuariosDirectores().subscribe(
+      data => this.usuarios = data,
+      error => {
+        console.error('Error al obtener usuarios directores:', error);
+        this.errorMessage = 'Error al obtener la lista de usuarios directores.';
+      }
     );
   }
 
   onSubmit(): void {
-    console.log('onSubmit called');
+    this.isLoading = true;
     if (!this.isEditing) {
-      
       this.carreraService.crearCarrera(this.carrera).subscribe(
         data => {
-          console.log('Carrera creada:', data);
           this.carreras.push(data);
           this.resetForm();
+          this.isLoading = false;
         },
-        error => console.error('Error al guardar carrera:', error)
+        error => {
+          console.error('Error al guardar carrera:', error);
+          this.errorMessage = 'Error al guardar la carrera.';
+          this.isLoading = false;
+        }
       );
     } else {
-   
       this.carreraService.actualizarCarrera(this.editingId!, this.carrera).subscribe(
         data => {
-          console.log('Carrera actualizada:', data);
           const index = this.carreras.findIndex(c => c.id === this.editingId);
           if (index !== -1) {
             this.carreras[index] = data;
           }
           this.resetForm();
+          this.isLoading = false;
         },
-        error => console.error('Error al actualizar carrera:', error)
+        error => {
+          console.error('Error al actualizar carrera:', error);
+          this.errorMessage = 'Error al actualizar la carrera.';
+          this.isLoading = false;
+        }
       );
     }
   }
@@ -74,24 +107,41 @@ export class CarreraFormComponent implements OnInit {
         this.isEditing = true;
         this.editingId = carrera.id;
       },
-      error => console.error('Error al obtener carrera para editar:', error)
+      error => {
+        console.error('Error al obtener carrera para editar:', error);
+        this.errorMessage = 'Error al obtener la carrera para editar.';
+      }
     );
   }
 
   onDelete(id: number): void {
-    this.carreraService.eliminarCarrera(id).subscribe(
-      () => {
-        this.carreras = this.carreras.filter(c => c.id !== id);
-        this.selectedCarrera = null;
-      },
-      error => console.error('Error al eliminar carrera:', error)
-    );
+    if (confirm('¿Estás seguro de que deseas eliminar esta carrera?')) {
+      this.isLoading = true;
+      this.carreraService.eliminarCarrera(id).subscribe(
+        () => {
+          this.carreras = this.carreras.filter(c => c.id !== id);
+          this.selectedCarrera = null;
+          this.isLoading = false;
+        },
+        error => {
+          console.error('Error al eliminar carrera:', error);
+          this.errorMessage = 'Error al eliminar la carrera.';
+          this.isLoading = false;
+        }
+      );
+    }
+  }
+
+  getDirectorName(usuario_id: number): string {
+    const usuario = this.usuarios.find(u => u.id === usuario_id);
+    return usuario ? `${usuario.nombre} ${usuario.apellido}` : 'Desconocido';
   }
 
   private resetForm(): void {
-    this.carrera = { id: 0, nombre: '', descripcion: '' };
+    this.carrera = { id: 0, nombre: '', descripcion: '', usuario_id: 0 };
     this.isEditing = false;
     this.editingId = null;
     this.selectedCarrera = null;
+    this.errorMessage = '';
   }
 }
