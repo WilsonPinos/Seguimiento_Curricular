@@ -83,4 +83,22 @@ export class UsuarioService {
       catchError(this.handleError)
     );
   }
+
+// Obtener usuarios que tienen el rol de "tutor"
+  obtenerUsuariostutores(): Observable<Usuario[]> {
+    return this.obtenerRolIdPorNombre('TUTOR').pipe(
+      switchMap(rolId => {
+        // Obtener todos los usuarios y filtrar por rol_id
+        return this.http.get<Usuario[]>(this.baseUrl).pipe(
+          switchMap(usuarios => {
+            const tutores = usuarios.filter(u => u.rol_id === rolId);
+            return of(tutores);
+          }),
+          catchError(this.handleError)
+        );
+      }),
+      catchError(this.handleError)
+    );
+  }
+
 }

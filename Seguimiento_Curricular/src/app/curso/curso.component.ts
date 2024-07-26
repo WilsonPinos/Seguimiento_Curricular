@@ -22,9 +22,13 @@ export class CursosComponent implements OnInit {
   isEditing: boolean = false;
   editingId: number | null = null;
 
-  usuarios: Usuario[];
+  usuarios: Usuario [] = [];
   carreras: Carrera[];
-  //Carreras: Carrera[] = []
+  isLoading: boolean = false;
+  errorMessage: string ='';
+
+
+  
 
 
 
@@ -39,8 +43,10 @@ export class CursosComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerCurso();
-    this.obtenerUsuario();
+   // this.obtenerUsuario();
     this.obtenerCarreras();
+    this.obtenerUsuariosTutores();
+
 
   }
 
@@ -50,6 +56,20 @@ export class CursosComponent implements OnInit {
     }, error => {
       console.error("Error al recuperar cursos", error); // Manejo de errores
     });
+  }
+
+  obtenerUsuariosTutores(): void {
+
+    this.usuarioService.obtenerUsuariostutores().subscribe(
+      data => this.usuarios =data,
+      error => {
+
+        console.error('Error al obtener usuarios tutores',error);
+        this.errorMessage='error al obtener la lista de usuarios tutores'
+        
+      }
+
+    );
   }
 
 
@@ -133,13 +153,21 @@ export class CursosComponent implements OnInit {
 
   }
 
+  getTutorName(usuario_id:number): string{
+    const usuario =this.usuarios.find(u => u.id === usuario_id);
+    return usuario ? `${usuario.nombre} ${usuario.apellido}` : 'Desconocido';
+  }
+
+
+
+
 
   //Usuario
-  private obtenerUsuario() {
+ /*  private obtenerUsuario() {
     this.usuarioService.obtenerListaUsuarios().subscribe(dato => {
       this.usuarios = dato;
     })
-  }
+  } */
 
   //carrera 
   obtenerCarreras(): void {
