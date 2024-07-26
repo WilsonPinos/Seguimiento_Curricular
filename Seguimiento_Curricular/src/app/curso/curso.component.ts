@@ -136,7 +136,7 @@ export class CursosComponent implements OnInit {
 
   //Usuario
   private obtenerUsuario() {
-    this.usuarioService.listarUsuarios().subscribe(dato => {
+    this.usuarioService.obtenerListaUsuarios().subscribe(dato => {
       this.usuarios = dato;
     })
   }
