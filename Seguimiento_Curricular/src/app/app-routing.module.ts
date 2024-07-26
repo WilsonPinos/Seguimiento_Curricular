@@ -9,6 +9,8 @@ import { DirectorComponent } from './director/director.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component'; // Añadir esta línea
+import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 const routes: Routes = [
   { path: 'roles', component: RolesComponent },
@@ -20,7 +22,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent }, // Añadir esta línea
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'usuarios', component: EditarUsuarioComponent }
 ];
 
 @NgModule({
