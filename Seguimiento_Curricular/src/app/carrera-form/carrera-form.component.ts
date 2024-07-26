@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarreraFormService } from './carrera-form.service'; 
-import { UsuarioService } from '../usuario.service';
+import { UsuarioService } from '../usuario-form/usuario.service';
 import { Carrera } from './carrera.model'; 
 import { Usuario } from '../usuario-form/usuario.model';
 
