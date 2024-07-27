@@ -19,6 +19,7 @@ import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { VincularPeriodoCarreraComponent } from './vincular-periodo-carrera/vincular-periodo-carrera.component';
 import { AdminComponent } from './admin/admin.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { AdminComponent } from './admin/admin.component';
     FormsModule,
     RouterModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
