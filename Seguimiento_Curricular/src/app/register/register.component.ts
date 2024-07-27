@@ -16,7 +16,8 @@ export class RegisterComponent {
     telefono: '',
     fecha_nacimiento: new Date(),
     cedula: '',
-    rol_id: 2 // Asignando el rol de docente por defecto
+    rol_id: 2, // Asignando el rol de docente por defecto
+    contrasena:''
   };
 
   constructor(private authService: AuthService, private router: Router) {}

@@ -16,20 +16,24 @@ export class UsuarioFormComponent {
     telefono: '',
     fecha_nacimiento: new Date(),
     cedula: '',
-    rol_id: undefined // Asegúrate de que el rol_id esté presente
+    rol_id: undefined,
+    contrasena: '' // Inicializa el nuevo campo
   };
 
   constructor(private usuarioService: UsuarioService) { }
 
   guardarUsuario(): void {
-    console.log('Datos del usuario antes de enviar:', this.usuario);
+    const { rol_id, ...usuarioToSave } = this.usuario;
+    console.log('Datos del usuario antes de enviar:', usuarioToSave);
 
-    this.usuarioService.guardarUsuario(this.usuario).subscribe(
+    this.usuarioService.guardarUsuario(usuarioToSave).subscribe(
       data => {
         console.log('Usuario guardado:', data);
-        this.resetForm(); // Limpiar el formulario después de guardar
+        this.resetForm();
       },
-      error => console.error('Error al guardar usuario:', error)
+      error => {
+        console.error('Error al guardar usuario:', error);
+      }
     );
   }
 
@@ -42,7 +46,8 @@ export class UsuarioFormComponent {
       telefono: '',
       fecha_nacimiento: new Date(),
       cedula: '',
-      rol_id: undefined
+      rol_id: undefined,
+      contrasena: ''
     };
   }
 }
