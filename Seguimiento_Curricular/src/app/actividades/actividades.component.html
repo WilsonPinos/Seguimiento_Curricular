@@ -52,8 +52,6 @@
       <th>Fecha de entrega</th>
       <th>Fecha maxima</th>
       <th>Rol</th>
-      <th>Entregado</th>
-      <th>Archivo entregado</th>
       <th>Periodo</th>
       <th>Pdf</th>
       <th>OPCIONES</th>
@@ -67,8 +65,6 @@
       <td>{{formatFecha(actividades.fecha_entregado)}}</td>
       <td>{{formatFecha(actividades.fecha_entrega_max)}}</td>
       <td>{{actividades.rol_id}}</td>
-      <td>{{actividades.activo}}</td>
-      <td>{{actividades.ruta_subido}}</td>
       <td>{{actividades.periodo_id}}</td>
       <button (click)="downloadFile(actividades)" class="btn btn-primary active mt-2">{{actividades.ruta_pdf}}</button>
       <td>

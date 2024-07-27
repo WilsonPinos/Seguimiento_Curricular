@@ -17,7 +17,7 @@ import { PeriodoService } from '../periodo/periodo.service';
 })
 export class ActividadesComponent implements OnInit {
   actividadess: Actividades[] = [];
-  actividades: Actividades = { id: 0, nombre: '', descripcion: '', fecha_entregado: new Date(), fecha_entrega_max: new Date(), ruta_pdf: '', rol_id:0, activo:false, ruta_subido:'', periodo_id:0 };
+  actividades: Actividades = { id: 0, nombre: '', descripcion: '', fecha_entregado: new Date(), fecha_entrega_max: new Date(), ruta_pdf: '', rol_id:0, activo:false, periodo_id:0 };
   selectedActividades: Actividades | null = null;
   isEditing: boolean = false;
   editingId: number | null = null;
@@ -131,15 +131,7 @@ export class ActividadesComponent implements OnInit {
     );
   }
 
-  /* onDelete(id: number): void {
-    this.actividadesService.eliminarActividades(id).subscribe(
-      () => {
-        this.actividadess = this.actividadess.filter(c => c.id !== id);
-        this.selectedActividades = null;
-      },
-      error => console.error('Error al eliminar Actividad:', error)
-    );
-  } */
+
     onDelete(id: number): void {
       this.actividadesService.obtenerActividadesId(id).subscribe(
         data => {
@@ -171,7 +163,7 @@ export class ActividadesComponent implements OnInit {
     
 
   private resetForm(): void {
-    this.actividades = { id: 0, nombre: '', descripcion: '', fecha_entregado: new Date(), fecha_entrega_max: new Date(), ruta_pdf: '', rol_id:0, activo:false, ruta_subido:'', periodo_id:0 };
+    this.actividades = { id: 0, nombre: '', descripcion: '', fecha_entregado: new Date(), fecha_entrega_max: new Date(), ruta_pdf: '', rol_id:0, activo:false, periodo_id:0 };
     this.isEditing = false;
     this.editingId = null;
     this.selectedActividades = null;

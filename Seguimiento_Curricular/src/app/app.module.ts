@@ -20,6 +20,8 @@ import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.componen
 import { VincularPeriodoCarreraComponent } from './vincular-periodo-carrera/vincular-periodo-carrera.component';
 import { AdminComponent } from './admin/admin.component';
 import { DatePipe } from '@angular/common';
+import { ActividadRelacionComponent } from './actividad-relacion/actividad-relacion.component';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { DatePipe } from '@angular/common';
     UsuarioFormComponent,
     EditarUsuarioComponent,
     VincularPeriodoCarreraComponent,
-    AdminComponent
+    AdminComponent,
+    ActividadRelacionComponent
   ],
   imports: [
     BrowserModule,

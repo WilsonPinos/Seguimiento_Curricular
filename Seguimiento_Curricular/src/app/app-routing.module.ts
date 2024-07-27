@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { VincularPeriodoCarreraComponent } from './vincular-periodo-carrera/vincular-periodo-carrera.component';
+import { ActividadRelacionComponent } from './actividad-relacion/actividad-relacion.component';
 
 const routes: Routes = [
   { path: 'roles', component: RolesComponent },
@@ -25,7 +26,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'usuarios', component: EditarUsuarioComponent },
   { path: 'vincular-periodo-carrera', component: VincularPeriodoCarreraComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'usuarios', component: EditarUsuarioComponent },
+  { path: 'entregados', component: ActividadRelacionComponent }
 ];
 
 @NgModule({

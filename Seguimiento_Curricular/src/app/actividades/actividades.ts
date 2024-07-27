@@ -7,6 +7,5 @@ export class Actividades {
     ruta_pdf:string;
     rol_id:number;
     activo:boolean;
-    ruta_subido:string;
     periodo_id:number;
 }
