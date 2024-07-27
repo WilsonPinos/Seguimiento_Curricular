@@ -25,7 +25,6 @@ export class UsuarioService {
       catchError(this.handleError)
     );
   }
-  
 
   // Obtener el rol_id por nombre
   private obtenerRolIdPorNombre(nombre: string): Observable<number> {
@@ -37,6 +36,8 @@ export class UsuarioService {
       catchError(this.handleError)
     );
   }
+
+  // Obtener lista de usuarios
   obtenerListaUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.baseUrl);
   }
@@ -58,15 +59,15 @@ export class UsuarioService {
     }
     return throwError(errorMessage);
   }
-
   
+
   // Obtener usuarios por rol_id
   private obtenerUsuariosPorRol(rolId: number): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.baseUrl}?rolId=${rolId}`).pipe(
       catchError(this.handleError)
     );
   }
-  
+
   // Obtener usuarios que tienen el rol de "DIRECTOR"
   obtenerUsuariosDirectores(): Observable<Usuario[]> {
     return this.obtenerRolIdPorNombre('DIRECTOR').pipe(
@@ -84,7 +85,8 @@ export class UsuarioService {
     );
   }
 
-// Obtener usuarios que tienen el rol de "tutor"
+ 
+  // Obtener usuarios que tienen el rol de "tutor"
   obtenerUsuariostutores(): Observable<Usuario[]> {
     return this.obtenerRolIdPorNombre('TUTOR').pipe(
       switchMap(rolId => {
@@ -100,5 +102,4 @@ export class UsuarioService {
       catchError(this.handleError)
     );
   }
-
 }

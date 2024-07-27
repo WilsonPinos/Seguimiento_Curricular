@@ -10,27 +10,31 @@
     <form (ngSubmit)="guardarUsuario()">
       <div class="mb-3">
         <label for="cedula" class="form-label">Cédula</label>
-        <input type="text" class="form-control" id="cedula" [(ngModel)]="usuario.cedula" name="cedula" required>
+        <input type="text" class="form-control" id="cedula" [(ngModel)]="usuario.cedula" name="cedula" required aria-required="true">
       </div>
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required>
+        <input type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required aria-required="true">
       </div>
       <div class="mb-3">
         <label for="apellido" class="form-label">Apellido</label>
-        <input type="text" class="form-control" id="apellido" [(ngModel)]="usuario.apellido" name="apellido" required>
+        <input type="text" class="form-control" id="apellido" [(ngModel)]="usuario.apellido" name="apellido" required aria-required="true">
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" [(ngModel)]="usuario.email" name="email" required>
+        <input type="email" class="form-control" id="email" [(ngModel)]="usuario.email" name="email" required aria-required="true">
       </div>
       <div class="mb-3">
         <label for="telefono" class="form-label">Teléfono</label>
-        <input type="tel" class="form-control" id="telefono" [(ngModel)]="usuario.telefono" name="telefono" required>
+        <input type="tel" class="form-control" id="telefono" [(ngModel)]="usuario.telefono" name="telefono" required aria-required="true">
       </div>
       <div class="mb-3">
         <label for="fecha-nacimiento" class="form-label">Fecha de Nacimiento</label>
-        <input type="date" class="form-control" id="fecha-nacimiento"  required [(ngModel)]="usuario.fecha_nacimiento" name="fechaNacimiento" required>
+        <input type="date" class="form-control" id="fecha-nacimiento" [(ngModel)]="usuario.fecha_nacimiento" name="fecha_nacimiento" required aria-required="true">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="contrasena" [(ngModel)]="usuario.contrasena" name="contrasena" required aria-required="true">
       </div>
       <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
