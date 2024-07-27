@@ -30,7 +30,6 @@
         <th>Nombre</th>
         <th>Fecha de Inicio</th>
         <th>Fecha de Fin</th>
-        <th>Carrera</th>
         <th>Opciones</th>
       </tr>
     </thead>
@@ -38,34 +37,11 @@
       <tr *ngFor="let periodo of periodos">
         <td>{{ periodo.id }}</td>
         <td>{{ periodo.nombre }}</td>
-        <td>{{ periodo.fecha_inicio | date }}</td>
-        <td>{{ periodo.fecha_fin | date }}</td>
-        <td>{{ getCarreraNombre(periodo.carrera_id) }}</td>
+        <td>{{ periodo.fecha_inicio | date:'dd/MM/yyyy' }}</td>
+        <td>{{ periodo.fecha_fin | date:'dd/MM/yyyy' }}</td>
         <td>
           <button (click)="editPeriodo(periodo)" class="btn btn-warning">Editar</button>
           <button (click)="deletePeriodo(periodo.id!)" class="btn btn-danger">Borrar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2 class="title">Periodo-Carrera</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Periodo</th>
-        <th>Carrera</th>
-        <th>Opciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let periodoCarrera of periodoCarreras">
-        <td>{{ periodoCarrera.id }}</td>
-        <td>{{ getPeriodoNombre(periodoCarrera.periodo_id) }}</td>
-        <td>{{ getCarreraNombre(periodoCarrera.carrera_id) }}</td>
-        <td>
-          <button (click)="deletePeriodoCarrera(periodoCarrera.id!)" class="btn btn-danger">Borrar</button>
         </td>
       </tr>
     </tbody>

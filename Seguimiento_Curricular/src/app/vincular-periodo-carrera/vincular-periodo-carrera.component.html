@@ -1,0 +1,19 @@
+<div class="container mt-5">
+    <h2>Vincular Periodo con Carrera</h2>
+    <form (ngSubmit)="vincular()">
+      <div class="form-group">
+        <label for="periodo">Periodo:</label>
+        <select id="periodo" [(ngModel)]="selectedPeriodo" name="periodo" class="form-control" required>
+          <option *ngFor="let periodo of periodos" [value]="periodo.id">{{ periodo.nombre }}</option>
+        </select>
+      </div>
+      <div class="form-group mt-3">
+        <label for="carrera">Carreras:</label>
+        <select id="carrera" [(ngModel)]="selectedCarreras" name="carrera" class="form-control" multiple required>
+          <option *ngFor="let carrera of carreras" [value]="carrera.id">{{ carrera.nombre }}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Vincular</button>
+    </form>
+  </div>
+  

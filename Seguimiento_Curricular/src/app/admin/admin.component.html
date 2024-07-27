@@ -1,47 +1,42 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="assets/imagenes/logo.png" style="height: 40px;">
-          </a>
+  <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+          <img src="assets/imagenes/logo.png" style="height: 40px;">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        </ul>
-        <div class="d-flex" role="search">
-            <a class="nav-link me-2" href="#">Perfil</a>
-          <a class="nav-link me-2" type="submit">Cerrar Sesión</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <div class="main-container">
-    <div class="sidebar">
-      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <button class="nav-link active mt-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
-        <button class="nav-link active mt-2" id="v-pills-periodos-tab" data-bs-toggle="collapse" data-bs-target="#v-pills-periodos-collapse" type="button" role="tab" aria-controls="v-pills-periodos-collapse" aria-expanded="false" aria-selected="false">Periodos</button>
-        <div class="collapse" id="v-pills-periodos-collapse">
-          <button class="nav-link active ms-3 mt-2" id="v-pills-carreras-tab" data-bs-toggle="collapse" data-bs-target="#v-pills-carreras-collapse" type="button" role="tab" aria-controls="v-pills-carreras-collapse" aria-expanded="false" aria-selected="false">Carreras</button>
-          <div class="collapse" id="v-pills-carreras-collapse">
-            <button class="nav-link active ms-4 mt-2" id="v-pills-cursos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cursos" type="button" role="tab" aria-controls="v-pills-cursos" aria-selected="false">Cursos</button>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+          <div class="d-flex" role="search">
+              <a class="nav-link me-2" href="#">Perfil</a>
+              <a class="nav-link me-2" type="submit">Cerrar Sesión</a>
           </div>
-        </div>
-
-        <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/roles" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Roles</button>
-        <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/carreras" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Carreras</button>
-        <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/cursos" type="button" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Cursos</button>
-        <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/actividades" type="button"  role="tab" aria-controls="v-pills-home" aria-selected="true">Actividades</button>
-        <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/periodos" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Periodos</button>
-        <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/usuarios" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Usuarios</button>
-        <button class="nav-link active mt-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Actividades</button>
-
       </div>
-    </div>
-    <div class="content">
-      <router-outlet></router-outlet>
-    </div>
   </div>
-  
-  
-  
+</nav>
+<div class="main-container">
+  <div class="sidebar">
+      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
+          <button class="nav-link active mt-2" id="v-pills-periodos-tab" data-bs-toggle="collapse" data-bs-target="#v-pills-periodos-collapse" type="button" role="tab" aria-controls="v-pills-periodos-collapse" aria-expanded="false" aria-selected="false">Periodos</button>
+          <div class="collapse" id="v-pills-periodos-collapse">
+              <button class="nav-link active ms-3 mt-2" id="v-pills-carreras-tab" data-bs-toggle="collapse" data-bs-target="#v-pills-carreras-collapse" type="button" role="tab" aria-controls="v-pills-carreras-collapse" aria-expanded="false" aria-selected="false">Carreras</button>
+              <div class="collapse" id="v-pills-carreras-collapse">
+                  <button class="nav-link active ms-4 mt-2" id="v-pills-cursos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cursos" type="button" role="tab" aria-controls="v-pills-cursos" aria-selected="false">Cursos</button>
+              </div>
+          </div>
+
+          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/roles" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Roles</button>
+          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/carreras" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Carreras</button>
+          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/cursos" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Cursos</button>
+          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/actividades" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Actividades</button>
+          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/periodos" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Periodos</button>
+          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/usuarios" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Usuarios</button>
+          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/vincular-periodo-carrera" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Vincular Periodo con Carrera</button>
+      </div>
+  </div>
+  <div class="content">
+      <router-outlet></router-outlet>
+  </div>
+</div>
