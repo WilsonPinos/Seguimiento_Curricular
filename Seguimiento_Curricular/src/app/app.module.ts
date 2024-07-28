@@ -12,7 +12,6 @@ import { CursosComponent } from './curso/curso.component';
 import { PeriodoComponent } from './periodo/periodo.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { DirectorComponent } from './director/director.component';
-import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
@@ -21,6 +20,7 @@ import { VincularPeriodoCarreraComponent } from './vincular-periodo-carrera/vinc
 import { AdminComponent } from './admin/admin.component';
 import { DatePipe } from '@angular/common';
 import { ActividadRelacionComponent } from './actividad-relacion/actividad-relacion.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -32,7 +32,6 @@ import { ActividadRelacionComponent } from './actividad-relacion/actividad-relac
     PeriodoComponent,
     ActividadesComponent,
     DirectorComponent,
-    RegisterComponent,
     LoginComponent,
     HomeComponent,
     UsuarioFormComponent,
@@ -46,7 +45,8 @@ import { ActividadRelacionComponent } from './actividad-relacion/actividad-relac
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

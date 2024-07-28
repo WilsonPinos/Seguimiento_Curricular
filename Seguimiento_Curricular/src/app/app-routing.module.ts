@@ -6,13 +6,14 @@ import { CursosComponent } from './curso/curso.component';
 import { PeriodoComponent } from './periodo/periodo.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { DirectorComponent } from './director/director.component';
-import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { VincularPeriodoCarreraComponent } from './vincular-periodo-carrera/vincular-periodo-carrera.component';
 import { ActividadRelacionComponent } from './actividad-relacion/actividad-relacion.component';
+import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './auth/auth-guard.service';
 
 const routes: Routes = [
   { path: 'roles', component: RolesComponent },
@@ -21,14 +22,15 @@ const routes: Routes = [
   { path: 'actividades', component: ActividadesComponent },
   { path: 'periodos', component: PeriodoComponent },
   { path: 'director', component: DirectorComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'usuarios', component: EditarUsuarioComponent },
+  { path: 'rusuarios', component: UsuarioFormComponent },
   { path: 'vincular-periodo-carrera', component: VincularPeriodoCarreraComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'usuarios', component: EditarUsuarioComponent },
-  { path: 'entregados', component: ActividadRelacionComponent }
+  { path: 'usuarios', component: EditarUsuarioComponent, canActivate: [AuthGuard]  },
+  { path: 'entregados', component: ActividadRelacionComponent },
+  { path: 'admin', component: AdminComponent }
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../usuario-form/auth.service';
+import { AuthService } from '../auth/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -8,23 +9,35 @@ import { AuthService } from '../usuario-form/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  id: number = 0;
+  loginForm: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  onLogin(): void {
-    this.authService.login(this.id).subscribe(
-      response => {
-        console.log('Login exitoso', response);
-        this.router.navigate(['/home']); // Redirige al home tras el login exitoso
-      },
-      error => {
-        console.error('Error en el login', error);
-      }
-    );
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-  goToRegister(): void {
-    this.router.navigate(['/register']);
+  onLogin() {
+    if (this.loginForm.valid) {
+      const { username, password } = this.loginForm.value;
+      this.authService.login(username, password).subscribe(
+        response => {
+          console.log('Login successful', response);
+          this.router.navigate(['/home']);
+        },
+        error => {
+          console.error('Login error', error);
+        }
+      );
+    }
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/rusuarios']); 
   }
 }
