@@ -21,6 +21,7 @@ import { AdminComponent } from './admin/admin.component';
 import { DatePipe } from '@angular/common';
 import { ActividadRelacionComponent } from './actividad-relacion/actividad-relacion.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { tutorComponent } from './Tutor/tutor.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditarUsuarioComponent,
     VincularPeriodoCarreraComponent,
     AdminComponent,
-    ActividadRelacionComponent
+    ActividadRelacionComponent,
+    tutorComponent
   ],
   imports: [
     BrowserModule,
