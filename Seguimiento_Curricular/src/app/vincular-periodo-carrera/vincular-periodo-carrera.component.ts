@@ -88,4 +88,14 @@ export class VincularPeriodoCarreraComponent implements OnInit {
       this.obtenerPeriodos_Carreras();
     });
   }
+
+  getPeriodoNombre(id: number): string {
+    const periodo = this.periodoss.find(p => p.id === id);
+    return periodo ? periodo.nombre ?? 'Desconocido' : 'Desconocido';
+  }
+
+  getCarreraNombre(id: number): string {
+    const carrera = this.carrerass.find(c => c.id === id);
+    return carrera ? carrera.nombre ?? 'Desconocido' : 'Desconocido';
+  }
 }

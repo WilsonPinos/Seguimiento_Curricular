@@ -32,8 +32,8 @@
   <tbody>
     <tr *ngFor="let periodo_carreras of periodo_carrerass" [class.table-active]="periodo_carreras.id === selectedPeriodoCarreras?.id" (click)="selectPeriodoCarreras(periodo_carreras)">
       <td>{{ periodo_carreras.id }}</td>
-      <td>{{ periodo_carreras.periodo_id }}</td>
-      <td>{{ periodo_carreras.carrera_id }}</td>
+      <td>{{ getPeriodoNombre(periodo_carreras.periodo_id) }}</td>
+      <td>{{ getCarreraNombre(periodo_carreras.carrera_id) }}</td>
       <td>
         <button class="btn btn-primary me-2" (click)="onEdit(periodo_carreras)">Editar</button>
         <button class="btn btn-danger" (click)="onDelete(periodo_carreras.id)">Eliminar</button>
