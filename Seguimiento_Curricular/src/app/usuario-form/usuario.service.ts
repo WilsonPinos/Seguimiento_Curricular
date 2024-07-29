@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, map } from 'rxjs/operators';
 import { Usuario } from './usuario.model';
 
 @Injectable({
@@ -83,6 +83,8 @@ export class UsuarioService {
       }),
       catchError(this.handleError)
     );
+
+    
   }
 
  
@@ -99,6 +101,12 @@ export class UsuarioService {
           catchError(this.handleError)
         );
       }),
+      catchError(this.handleError)
+    );
+  }
+  obtenerUsuarioPorCedula(cedula: string): Observable<Usuario | null> {
+    return this.http.get<Usuario[]>(`${this.baseUrl}?cedula=${cedula}`).pipe(
+      map(usuarios => usuarios.length > 0 ? usuarios[0] : null),
       catchError(this.handleError)
     );
   }

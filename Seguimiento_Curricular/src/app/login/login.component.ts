@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth-service.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,35 +8,26 @@ import { AuthService } from '../auth/auth-service.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  cedula: string;
+  password: string;
+  error: string;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  onLogin() {
-    if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
-      this.authService.login(username, password).subscribe(
-        response => {
-          console.log('Login successful', response);
-          this.router.navigate(['/home']);
-        },
-        error => {
-          console.error('Login error', error);
+  login() {
+    this.authService.login(this.cedula, this.password).subscribe(success => {
+      if (success) {
+        const role = this.authService.role;
+        if (role === '1') { // ID del rol "ADMIN"
+          this.router.navigate(['/admin']);
+        } else if (role === '2') { // ID del rol "DIRECTOR"
+          this.router.navigate(['/director']);
+        } else if (role === '3') { // ID del rol "TUTOR"
+          this.router.navigate(['/tutor']);
         }
-      );
-    }
-  }
-
-  navigateToRegister() {
-    this.router.navigate(['/rusuarios']); 
+      } else {
+        this.error = 'Invalid credentials';
+      }
+    });
   }
 }
