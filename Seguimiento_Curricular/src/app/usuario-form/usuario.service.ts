@@ -62,7 +62,7 @@ export class UsuarioService {
   
 
   // Obtener usuarios por rol_id
-  private obtenerUsuariosPorRol(rolId: number): Observable<Usuario[]> {
+  obtenerUsuariosPorRol(rolId: number): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.baseUrl}?rolId=${rolId}`).pipe(
       catchError(this.handleError)
     );

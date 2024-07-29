@@ -22,8 +22,6 @@ import { DatePipe } from '@angular/common';
 import { ActividadRelacionComponent } from './actividad-relacion/actividad-relacion.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { tutorComponent } from './Tutor/tutor.component';
-import { AuthService } from './auth/auth.service';
-import { AuthGuard } from './auth/auth.guard';
 
 
 @NgModule({
@@ -52,7 +50,7 @@ import { AuthGuard } from './auth/auth.guard';
     RouterModule,
     ReactiveFormsModule
   ],
-  providers: [DatePipe, AuthService, AuthGuard],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

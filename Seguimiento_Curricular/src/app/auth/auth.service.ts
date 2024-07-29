@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/* import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../usuario-form/usuario.service';
 import { Usuario } from '../usuario-form/usuario.model';
@@ -27,11 +27,6 @@ export class AuthService {
     );
   }
 
-  logout() {
-    this.currentUser = null;
-    this.router.navigate(['/login']);
-  }
-
   get isLoggedIn(): boolean {
     return this.currentUser != null;
   }
@@ -42,3 +37,4 @@ export class AuthService {
       : '';
   }
 }
+ */

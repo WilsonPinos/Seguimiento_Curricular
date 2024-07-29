@@ -8,6 +8,10 @@ import { Roles } from '../roles/roles';
 import { RolesService } from '../roles/roles.service';
 import { Periodo } from '../periodo/periodo.model';
 import { PeriodoService } from '../periodo/periodo.service';
+import { UsuarioService } from '../usuario-form/usuario.service';
+import { ActividadRelacion } from '../actividad-relacion/actividad-relacion';
+import { ActividadRelacionService } from '../actividad-relacion/actividad-relacion.service';
+import { Usuario } from '../usuario-form/usuario.model';
 
 
 @Component({
@@ -26,26 +30,45 @@ export class ActividadesComponent implements OnInit {
   periodos: Periodo[] = [];
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
   currentFileName: string | null = null;
+  usuarios: Usuario[] = [];
+  rolIdSeleccionado: number;
+  originalActividad: Actividades | null = null;
 
   constructor(
     private actividadesService: ActividadesService,
     private fileService: FileService,
     private datePipe: DatePipe,
     private RolesService:RolesService,
-    private periodoService: PeriodoService
+    private periodoService: PeriodoService,
+    private usuarioService: UsuarioService,
+    private actividadRelacionService: ActividadRelacionService
   ) {}
 
   ngOnInit(): void {
     this.obtenerActividades();
     this.obtenerRoles();
     this.loadPeriodos();
+    this.obtenerUsuarios();
+  }
+  private obtenerUsuarios(): void {
+    this.usuarioService.obtenerListaUsuarios().subscribe(
+      usuarios => {
+        this.usuarios = usuarios;
+        console.log('Usuarios cargados:', this.usuarios);
+      },
+      error => console.error('Error al obtener usuarios:', error)
+    );
   }
 
   private obtenerActividades(): void {
-    this.actividadesService.obtenerListaActividades().subscribe(dato => {
+  this.actividadesService.obtenerListaActividades().subscribe(
+    dato => {
       this.actividadess = dato;
-    });
-  }
+    },
+    error => console.error('Error al obtener actividades:', error)
+  );
+}
+
 
   onFileChange(event: any): void {
     if (event.target.files.length > 0) {
@@ -54,7 +77,7 @@ export class ActividadesComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if(!this.currentFileName?.includes("")){
+    if (!this.currentFileName?.includes("")) {
       if (!this.selectedFile) {
         Swal.fire({
           icon: 'error',
@@ -64,27 +87,22 @@ export class ActividadesComponent implements OnInit {
         return;
       }
     }
-    
   
     if (this.selectedFile) {
-      
       this.fileService.uploadFile(this.selectedFile).subscribe(
         response => {
           console.log('File upload response:', response);
-          this.actividades.ruta_pdf = response.fileName; 
+          this.actividades.ruta_pdf = response.fileName;
           this.createActividad();
         },
         error => {
-
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'A file with the same name already exists. Please choose a different file.'
-            });
-          
-          }
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'A file with the same name already exists. Please choose a different file.'
+          });
+        }
       );
-    
     } else {
       this.createActividad();
     }
@@ -94,26 +112,93 @@ export class ActividadesComponent implements OnInit {
     this.actividadesService.crearActividades(this.actividades).subscribe(
       data => {
         console.log('Actividad creada:', data);
+        if (data.id && this.actividades.rol_id) {
+          this.crearActividadesRelacion(data.id, this.actividades.rol_id);
+        } else {
+          console.error('Error: ID de actividad o rol_id no disponible');
+        }
         this.actividadess.push(data);
         this.obtenerActividades();
         this.resetForm();
         this.currentFileName = null;
       },
       error => console.error('Error al guardar Actividad:', error)
-      
     );
   }
+
+private crearActividadesRelacion(actividadId: number, rolId: number): void {
+  console.log('Rol ID seleccionado:', rolId);
+  console.log('Usuarios antes del filtro:', this.usuarios);
+
+  const usuariosPorRol = this.usuarios.filter(usuario => usuario.rol_id === Number(rolId));
+
+  console.log('Usuarios por rol:', usuariosPorRol);
+
+  const actividadesRelacion: ActividadRelacion[] = usuariosPorRol
+    .filter(usuario => usuario.id !== undefined)
+    .map(usuario => ({
+      id: 0,
+      estado: false,
+      pdf: '',
+      actividad_id: actividadId,
+      usuario_id: usuario.id!,
+      observacion: ''
+    }));
+
+  console.log('ActividadesRelacion:', actividadesRelacion);
+
+  actividadesRelacion.forEach(actividadRelacion => {
+    this.actividadRelacionService.crearActividadesRelacion(actividadRelacion).subscribe(
+      response => {
+        console.log('ActividadRelacion creada:', response);
+      },
+      error => console.error('Error al crear ActividadRelacion:', error)
+    );
+  });
+}
   
+private updateActividadInMemory(): void {
+  if (this.editingId === null) return;
 
-
-
-  onUpdate(): void {
-    this.onSubmit();
+  const index = this.actividadess.findIndex(actividad => actividad.id === this.editingId);
+  if (index !== -1) {
+    this.actividadess[index] = { ...this.actividades, id: this.editingId };
+  } else {
+    console.error('Actividad no encontrada en la lista');
   }
+}
 
-  onCancelEdit(): void {
-    this.resetForm();
+
+
+
+onUpdate(): void {
+  if (this.editingId === null) return;
+
+  this.actividadesService.actualizarActividades(this.editingId, this.actividades).subscribe(
+    data => {
+      console.log('Actividad actualizada:', data);
+      // Actualiza en memoria
+      this.updateActividadInMemory();
+      // Obtén las actividades nuevamente desde el backend para asegurarte de que están actualizadas
+      this.obtenerActividades();
+      this.resetForm();
+      this.currentFileName = null;
+    },
+    error => console.error('Error al actualizar Actividad:', error)
+  );
+}
+
+
+
+onCancelEdit(): void {
+  if (this.originalActividad) {
+    const index = this.actividadess.findIndex(actividad => actividad.id === this.originalActividad?.id);
+    if (index !== -1) {
+      this.actividadess[index] = { ...this.originalActividad };
+    }
   }
+  this.resetForm();
+}
 
   selectActividades(actividades: Actividades): void {
     this.selectedActividades = actividades;
@@ -130,6 +215,7 @@ export class ActividadesComponent implements OnInit {
       error => console.error('Error al obtener Actividad para editar:', error)
     );
   }
+  
 
 
     onDelete(id: number): void {

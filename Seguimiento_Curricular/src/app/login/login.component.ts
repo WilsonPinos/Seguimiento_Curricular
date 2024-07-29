@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { UsuarioService } from '../usuario-form/usuario.service';
+import { Usuario } from '../usuario-form/usuario.model';
 
 @Component({
   selector: 'app-login',
@@ -8,26 +9,41 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  cedula: string;
-  password: string;
-  error: string;
+  cedula: string = '';
+  password: string = '';
+  error: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private usuarioService: UsuarioService, private router: Router) {}
 
   login() {
-    this.authService.login(this.cedula, this.password).subscribe(success => {
-      if (success) {
-        const role = this.authService.role;
-        if (role === '1') { // ID del rol "ADMIN"
-          this.router.navigate(['/admin']);
-        } else if (role === '2') { // ID del rol "DIRECTOR"
-          this.router.navigate(['/director']);
-        } else if (role === '3') { // ID del rol "TUTOR"
-          this.router.navigate(['/tutor']);
+    this.usuarioService.obtenerListaUsuarios().subscribe(
+      (usuarios: Usuario[]) => {
+        const usuario = usuarios.find(u => u.cedula === this.cedula && u.contrasena === this.password);
+        
+        if (usuario) {
+          // Redirigir según el rol
+          switch (usuario.rol_id) {
+            case 1: // ADMIN
+              this.router.navigate(['/admin']);
+              break;
+            case 2: // DIRECTOR
+              this.router.navigate(['/director']);
+              break;
+            case 3: // TUTOR
+              this.router.navigate(['/tutor']);
+              break;
+            default:
+              this.error = 'Rol no reconocido';
+              break;
+          }
+        } else {
+          this.error = 'Credenciales inválidas';
         }
-      } else {
-        this.error = 'Invalid credentials';
+      },
+      error => {
+        this.error = 'Error al obtener usuarios';
+        console.error(error);
       }
-    });
+    );
   }
 }
