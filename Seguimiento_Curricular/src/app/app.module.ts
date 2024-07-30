@@ -22,6 +22,7 @@ import { DatePipe } from '@angular/common';
 import { ActividadRelacionComponent } from './actividad-relacion/actividad-relacion.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { tutorComponent } from './Tutor/tutor.component';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { tutorComponent } from './Tutor/tutor.component';
     HttpClientModule,
     FormsModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    IonicModule.forRoot({})
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

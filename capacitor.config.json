@@ -1,6 +1,6 @@
 {
-  "appId": "com.example.app",
-  "appName": "Seguimiento Curricular",
-  "webDir": "dist/seguimiento-curricular",
+  "appId": "com.example.seguimientocurricular",
+  "appName": "SeguimientoCurricular",
+  "webDir": "www",
   "bundledWebRuntime": false
 }
