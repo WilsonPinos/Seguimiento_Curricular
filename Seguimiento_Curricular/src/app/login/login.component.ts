@@ -14,11 +14,27 @@ export class LoginComponent {
   password: string = '';
   error: string = '';
 
+  // Definir el usuario de administrador
+  private adminUser: Usuario = {
+    id: 1,
+    nombre: 'Admin',
+    apellido: 'User',
+    email: 'admin@example.com',
+    telefono: '1234567890',
+    fecha_nacimiento: new Date('1970-01-01'),
+    cedula: 'admin123',
+    contrasena: 'adminpassword',
+    rol_id: 1
+  };
+
   constructor(private usuarioService: UsuarioService, private router: Router) {}
 
   login() {
     this.usuarioService.obtenerListaUsuarios().subscribe(
       (usuarios: Usuario[]) => {
+        // Añadir el usuario de administrador a la lista de usuarios
+        usuarios.push(this.adminUser);
+
         const usuario = usuarios.find(u => u.cedula === this.cedula && u.contrasena === this.password);
         
         if (usuario) {
