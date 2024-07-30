@@ -3,6 +3,8 @@
     "@capacitor/android": "^6.1.1",
     "@capacitor/cli": "^6.1.1",
     "@capacitor/core": "^6.1.1",
+    "@ionic/angular": "^8.2.6",
+    "@ionic/angular-toolkit": "^11.0.1",
     "sweetalert2": "^11.12.3"
   }
 }
