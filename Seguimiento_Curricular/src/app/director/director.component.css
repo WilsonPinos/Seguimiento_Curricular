@@ -1,49 +1,28 @@
-.container-fluid {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  
-  .navbar-custom {
-    background-color: #007bff;
-  }
-  
-  .navbar-custom .navbar-brand, 
-  .navbar-custom .nav-link {
-    color: white;
-  }
-  
-  .navbar-nav {
-    margin-left: auto;
-  }
-  
-  .sidebar {
-    height: calc(100vh - 56px); /* Ajusta el tamaño de la sidebar restando el alto de la navbar */
-    padding-top: 20px;
-    background-color: #f8f9fa; /* Color gris claro */
-  }
-  
-  .sidebar .nav-link {
-    color: black;
-  }
-  
-  
-  .nav-item .director-btn {
-    background-color: #007bff; /* Fondo azul */
-    color: white; /* Texto blanco */
-    border: none;
-    width: 100%;
-    text-align: left;
-  }
-  
-  .nav-item .director-btn:hover {
-    background-color: #0056b3; /* Fondo azul oscuro al pasar el ratón por encima */
-  }
-  
-   .collapse .nav-link {
-    padding-left: 20px;
-  }
-    
-  .main-content {
-    padding: 20px;
-  }
-  
+.nav-link {
+  color: white;
+  text-decoration: none; 
+}
+
+.nav-link:hover {
+  color: black;
+}
+
+.main-container {
+  display: flex; 
+  height: 100vh; 
+}
+
+.sidebar {
+  width: 13%;
+  background-color: rgba(180, 180, 180, 0.514);
+  height: 100%; 
+  display: flex;
+  flex-direction: column;
+  padding: 15px; 
+}
+
+.content {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 15px;
+}

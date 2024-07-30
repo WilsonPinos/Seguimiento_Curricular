@@ -1,65 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container-fluid">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Inicio</a>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav ms-auto"> <!-- ms-auto para alinear a la derecha -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Cerrar Sesión</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <button class="nav-link active mt-2 director-btn"
-                                id="v-pills-director-tab" 
-                                data-bs-toggle="collapse" 
-                                data-bs-target="#v-pills-director-collapse"
-                                type="button" 
-                                role="tab" 
-                                aria-controls="v-pills-director-collapse" 
-                                aria-expanded="false" 
-                                aria-selected="false">Director</button>
-
-                            <div class="collapse" id="v-pills-director-collapse">
-                                <a class="nav-link" href="#">Actividades</a>
-                                <a class="nav-link" href="#">Asignar Curso</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            
-            <!-- Main content -->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <!-- Aquí puedes agregar cualquier contenido adicional que desees -->
-            </main>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-</body>
-</html>
-
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Actividad</th>
+        <th>Fecha máxima</th>
+        <th>PDF de actividad</th>
+        <th>PDF Entregado</th>
+        <th>Subir</th>
+        <th>ID Actividad</th>
+        <th>ID Usuario</th>
+        <th>Observacion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let relacion of relacionactividadess">
+        <td>{{ getActividadNombre(relacion.actividad_id) }}</td>
+        <td>{{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}</td>
+        <td>
+          <button (click)="downloadFile(getActividadPdf(relacion.actividad_id))" class="btn btn-primary active mt-2">
+            {{getActividadPdf(relacion.actividad_id)}}
+          </button>
+        </td>
+        <td>
+          <button (click)="downloadFile(relacion.pdf)" class="btn btn-primary active mt-2">
+            {{relacion.pdf}}
+          </button>
+        </td>
+        <td>
+          <input type="file" (change)="onFileSelected($event, relacion)">
+          <button *ngIf="selectedFiles[relacion.id]" (click)="uploadFile(relacion)" class="btn btn-primary mt-2">Subir</button>
+        </td>
+        <td>{{ relacion.actividad_id }}</td>
+        <td>{{ relacion.usuario_id }}</td>
+        <td>{{ relacion.observacion }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

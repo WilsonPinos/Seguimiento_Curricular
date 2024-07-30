@@ -30,4 +30,5 @@ export class ActividadRelacionService {
   actualizarActividadRelacion(relacion: ActividadRelacion): Observable<Object> {
     return this.httpClient.put(`${this.baseURL}/${relacion.id}`, relacion);
   }
+  
 }

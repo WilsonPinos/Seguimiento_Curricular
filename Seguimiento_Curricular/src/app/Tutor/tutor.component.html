@@ -15,19 +15,42 @@
       </div>
   </div>
 </nav>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Actividad</th>
+        <th>Fecha máxima</th>
+        <th>PDF de actividad</th>
+        <th>PDF Entregado</th>
+        <th>Subir</th>
+        <th>ID Actividad</th>
+        <th>ID Usuario</th>
+        <th>Observacion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let relacion of relacionactividadess">
+        <td>{{ getActividadNombre(relacion.actividad_id) }}</td>
+        <td>{{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}</td>
+        <td>
+          <button (click)="downloadFile(getActividadPdf(relacion.actividad_id))" class="btn btn-primary active mt-2">
+            {{getActividadPdf(relacion.actividad_id)}}
+          </button>
+        </td>
+        <td>
+          <button (click)="downloadFile(relacion.pdf)" class="btn btn-primary active mt-2">
+            {{relacion.pdf}}
+          </button>
+        </td>
+        <td>
+          <input type="file" (change)="onFileSelected($event, relacion)">
+          <button *ngIf="selectedFiles[relacion.id]" (click)="uploadFile(relacion)" class="btn btn-primary mt-2">Subir</button>
+        </td>
+        <td>{{ relacion.actividad_id }}</td>
+        <td>{{ relacion.usuario_id }}</td>
+        <td>{{ relacion.observacion }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
 
-
-<div class="main-container">
-  <div class="sidebar">
-      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <button class="nav-link active mt-2" id="v-pills-home-tab" routerLink="/home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
-          <button class="nav-link active mt-2" id="v-pills-periodos-tab" routerLink="/periodos" type="button" role="tab" aria-controls="v-pills-periodos" aria-selected="false">Periodos</button>
-          <button class="nav-link active mt-2" id="v-pills-carreras-tab" routerLink="/carreras" type="button" role="tab" aria-controls="v-pills-carreras" aria-selected="false">Carreras</button>
-          <button class="nav-link active mt-2" id="v-pills-cursos-tab" routerLink="/cursos" type="button" role="tab" aria-controls="v-pills-cursos" aria-selected="false">Cursos</button>
-      </div>
-  </div>
-
-  <div class="content">
-      <router-outlet></router-outlet>
-  </div>
-</div>

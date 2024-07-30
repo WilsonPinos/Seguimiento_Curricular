@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../usuario-form/usuario.service';
 import { Usuario } from '../usuario-form/usuario.model';
+import { GlobalState } from './GlobalState';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent {
         
         if (usuario) {
           // Redirigir según el rol
+          GlobalState.cedula = usuario.cedula;
           switch (usuario.rol_id) {
             case 1: // ADMIN
               this.router.navigate(['/admin']);
