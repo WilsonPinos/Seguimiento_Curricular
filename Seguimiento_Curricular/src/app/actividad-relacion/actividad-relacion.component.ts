@@ -21,7 +21,7 @@ export class ActividadRelacionComponent implements OnInit {
     private fileService: FileService,
     private datePipe: DatePipe,
     private actividadesService: ActividadesService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.obtenerActividadesRelacion();
@@ -52,8 +52,15 @@ export class ActividadRelacionComponent implements OnInit {
   }
 
   formatFecha(fecha: Date | undefined): string {
-    return fecha ? this.datePipe.transform(fecha, 'dd/MM/yyyy HH:mm', 'UTC') || '' : '';
+    if (!fecha) return '';
+
+    const date = new Date(fecha);
+    if (date.getFullYear() === 2000) {
+      return 'Sin fecha';
+    }
+    return this.datePipe.transform(date, 'dd/MM/yyyy HH:mm', 'UTC') || '';
   }
+
 
   getActividadNombre(id: number): string {
     const actividad = this.actividadess.find(a => a.id === id);

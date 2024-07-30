@@ -23,6 +23,7 @@ import { ActividadRelacionComponent } from './actividad-relacion/actividad-relac
 import { ReactiveFormsModule } from '@angular/forms';
 import { tutorComponent } from './Tutor/tutor.component';
 import { IonicModule } from '@ionic/angular';
+import { DocenteComponent } from './docente/docente.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { IonicModule } from '@ionic/angular';
     VincularPeriodoCarreraComponent,
     AdminComponent,
     ActividadRelacionComponent,
-    tutorComponent
+    tutorComponent,
+    DocenteComponent
   ],
   imports: [
     BrowserModule,

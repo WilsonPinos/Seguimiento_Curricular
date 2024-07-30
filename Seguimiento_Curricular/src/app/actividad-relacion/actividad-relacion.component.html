@@ -11,6 +11,7 @@
         <th>ID Usuario</th>
         <th>Observacion</th>
         <th>Estado</th>
+        <th>Fecha de entrega</th>
         <th>Opciones</th>
       </tr>
     </thead>
@@ -26,8 +27,11 @@
           </button>
         </td>
         <td>
-          <button (click)="downloadFile(relacion.pdf)" class="btn btn-primary active mt-2">
-            {{relacion.pdf}}
+          <button *ngIf="!relacion.pdf" class="btn btn-danger mt-2">
+            No Entregado
+          </button>
+          <button *ngIf="relacion.pdf" (click)="downloadFile(relacion.pdf)" class="btn btn-success mt-2">
+            {{ relacion.pdf }}
           </button>
         </td>
         <td>{{ relacion.actividad_id }}</td>
@@ -42,6 +46,7 @@
             <input type="checkbox" [checked]="relacion.estado" disabled>
           </span>
         </td>
+        <td>{{ formatFecha(relacion.fecha_de_subida) }}</td>
         <td>
           <button *ngIf="!isEditing(relacion.id)" class="btn btn-primary me-2" (click)="edit(relacion.id)">Editar</button>
           <button *ngIf="isEditing(relacion.id)" class="btn btn-primary me-2" (click)="save(relacion)">Guardar</button>

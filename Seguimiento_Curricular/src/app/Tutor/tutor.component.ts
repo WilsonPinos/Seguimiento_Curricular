@@ -7,6 +7,7 @@ import { FileService } from '../files/file.service';
 import { DatePipe } from '@angular/common';
 import { GlobalState } from '../login/GlobalState';
 import { UsuarioService } from '../usuario-form/usuario.service';
+import { UsuarioEditarService, Usuario } from '../editar-usuario/usuario-editar.service';
 
 @Component({
   selector: 'app-tutor',
@@ -19,19 +20,22 @@ export class tutorComponent {
   selectedFiles: { [key: number]: File | null } = {};
   cedula: string = GlobalState.cedula;
   usuarioId: number | null | undefined = null;
+  usuariosnombre: Usuario[] = [];
 
   constructor(
     private actividadRelacionService: ActividadRelacionService,
     private fileService: FileService,
     private datePipe: DatePipe,
     private actividadesService: ActividadesService,
-    private usuarioService: UsuarioService
-  ) {}
+    private usuarioService: UsuarioService,
+    private editarusuarioService: UsuarioEditarService
+  ) { }
 
   ngOnInit(): void {
     this.obtenerUsuarioPorCedula();
     this.obtenerActividadesRelacion();
     this.obtenerActividades();
+    this.obtenerUsuariosnombre();
   }
 
   private obtenerActividades(): void {
@@ -99,8 +103,14 @@ export class tutorComponent {
     if (file) {
       this.fileService.uploadFile(file).subscribe(
         response => {
-          relacion.pdf = file.name; 
-          this.save(relacion); 
+          relacion.pdf = file.name;
+          relacion.estado = true;
+          const nowLocal = new Date();
+          const offsetMinutes = nowLocal.getTimezoneOffset();
+          const offsetMilliseconds = offsetMinutes * 60 * 1000;
+          const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds);
+          relacion.fecha_de_subida = nowUtc;
+          this.save(relacion);
         },
         error => console.error('Error uploading file', error)
       );
@@ -115,4 +125,15 @@ export class tutorComponent {
       error => console.error('Error updating relacion actividad', error)
     );
   }
+  obtenerUsuariosnombre(): void {
+    this.editarusuarioService.obtenerUsuarios().subscribe(
+      data => this.usuariosnombre = data,
+      error => console.error('Error al obtener usuarios:', error)
+    );
+  }
+  getUsuarioNombrePorId(usuarioId: number): string {
+    const usuario = this.usuariosnombre.find(u => u.id === usuarioId);
+    return usuario ? `${usuario.nombre} ${usuario.apellido}` : 'Nombre no encontrado';
+  }
+
 }

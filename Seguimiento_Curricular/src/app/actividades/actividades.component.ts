@@ -142,7 +142,8 @@ private crearActividadesRelacion(actividadId: number, rolId: number): void {
       pdf: '',
       actividad_id: actividadId,
       usuario_id: usuario.id!,
-      observacion: ''
+      observacion: '',
+      fecha_de_subida: new Date(2000, 0, 1)
     }));
 
   console.log('ActividadesRelacion:', actividadesRelacion);

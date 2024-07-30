@@ -14,6 +14,7 @@ import { VincularPeriodoCarreraComponent } from './vincular-periodo-carrera/vinc
 import { ActividadRelacionComponent } from './actividad-relacion/actividad-relacion.component';
 import { AdminComponent } from './admin/admin.component';
 import { tutorComponent } from './Tutor/tutor.component';
+import { DocenteComponent } from './docente/docente.component';
 
 const routes: Routes = [
   { path: 'roles', component: RolesComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'usuarios', component: EditarUsuarioComponent},
   { path: 'entregados', component: ActividadRelacionComponent },
   { path: 'admin', component: AdminComponent},
-  { path: 'tutor', component: tutorComponent}
+  { path: 'tutor', component: tutorComponent},
+  { path: 'docente', component: DocenteComponent}
 ];
 
 @NgModule({

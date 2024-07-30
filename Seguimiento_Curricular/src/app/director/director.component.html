@@ -1,3 +1,4 @@
+<div>
 <table class="table table-bordered">
     <thead>
       <tr>
@@ -7,7 +8,7 @@
         <th>PDF Entregado</th>
         <th>Subir</th>
         <th>ID Actividad</th>
-        <th>ID Usuario</th>
+        <th>Usuario</th>
         <th>Observacion</th>
       </tr>
     </thead>
@@ -21,8 +22,11 @@
           </button>
         </td>
         <td>
-          <button (click)="downloadFile(relacion.pdf)" class="btn btn-primary active mt-2">
-            {{relacion.pdf}}
+          <button *ngIf="!relacion.pdf" class="btn btn-danger mt-2">
+            No Entregado
+          </button>
+          <button *ngIf="relacion.pdf" (click)="downloadFile(relacion.pdf)" class="btn btn-success mt-2">
+            {{ relacion.pdf }}
           </button>
         </td>
         <td>
@@ -30,9 +34,43 @@
           <button *ngIf="selectedFiles[relacion.id]" (click)="uploadFile(relacion)" class="btn btn-primary mt-2">Subir</button>
         </td>
         <td>{{ relacion.actividad_id }}</td>
-        <td>{{ relacion.usuario_id }}</td>
+        <td>{{ getUsuarioNombrePorId(relacion.usuario_id) }}</td>
         <td>{{ relacion.observacion }}</td>
       </tr>
     </tbody>
   </table>
-  
+  </div>
+  <button class="btn btn-primary mt-2" (click)="toggleTabla()">
+    Asignar Tutores
+  </button>
+  <div *ngIf="mostrarTabla">
+    <table class="table table-hover mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Rol</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios" (click)="seleccionarUsuario(usuario)">
+          <td>{{ usuario.id }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.apellido }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.telefono }}</td>
+          <td>{{ usuario.fecha_nacimiento | date }}</td>
+          <td>
+            <select class="form-control" [(ngModel)]="usuario.rol_id" (change)="cambiarRol($event, usuario)" [disabled]="usuario.id === 1">
+              <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    </div>

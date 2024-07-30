@@ -8,24 +8,19 @@ import { DatePipe } from '@angular/common';
 import { GlobalState } from '../login/GlobalState';
 import { UsuarioService } from '../usuario-form/usuario.service';
 import { UsuarioEditarService, Usuario, Rol } from '../editar-usuario/usuario-editar.service';
-import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-director',
-  templateUrl: './director.component.html',
-  styleUrl: './director.component.css'
+  selector: 'app-docente',
+  templateUrl: './docente.component.html',
+  styleUrls: ['./docente.component.css'],
 })
-export class DirectorComponent {
+export class DocenteComponent{
   relacionactividadess: ActividadRelacion[] = [];
   actividadess: Actividades[] = [];
   selectedFiles: { [key: number]: File | null } = {};
   cedula: string = GlobalState.cedula;
   usuarioId: number | null | undefined = null;
-  usuarios: Usuario[] = [];
   usuariosnombre: Usuario[] = [];
-  roles: Rol[] = [];
-  usuarioSeleccionado: Usuario | null = null;
-  mostrarTabla: boolean = false;
 
   constructor(
     private actividadRelacionService: ActividadRelacionService,
@@ -34,14 +29,12 @@ export class DirectorComponent {
     private actividadesService: ActividadesService,
     private usuarioService: UsuarioService,
     private editarusuarioService: UsuarioEditarService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.obtenerUsuarioPorCedula();
     this.obtenerActividadesRelacion();
     this.obtenerActividades();
-    this.obtenerUsuarios();
-    this.obtenerRoles();
     this.obtenerUsuariosnombre();
   }
 
@@ -111,13 +104,13 @@ export class DirectorComponent {
       this.fileService.uploadFile(file).subscribe(
         response => {
           relacion.pdf = file.name;
-        relacion.estado = true;
-        const nowLocal = new Date();
-        const offsetMinutes = nowLocal.getTimezoneOffset(); 
-        const offsetMilliseconds = offsetMinutes * 60 * 1000;
-        const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds); 
-        relacion.fecha_de_subida = nowUtc;
-        this.save(relacion);
+          relacion.estado = true;
+          const nowLocal = new Date();
+          const offsetMinutes = nowLocal.getTimezoneOffset();
+          const offsetMilliseconds = offsetMinutes * 60 * 1000;
+          const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds);
+          relacion.fecha_de_subida = nowUtc;
+          this.save(relacion);
         },
         error => console.error('Error uploading file', error)
       );
@@ -132,94 +125,15 @@ export class DirectorComponent {
       error => console.error('Error updating relacion actividad', error)
     );
   }
-  //USUARIO
   obtenerUsuariosnombre(): void {
     this.editarusuarioService.obtenerUsuarios().subscribe(
       data => this.usuariosnombre = data,
       error => console.error('Error al obtener usuarios:', error)
     );
   }
-    obtenerUsuarios(): void {
-      this.editarusuarioService.obtenerUsuarios().subscribe(
-        data => {
-          this.usuarios = data.filter(usuario => usuario.rol_id === 3 || usuario.rol_id === 4);
-          console.log('Usuarios cargados:', this.usuarios);
-        },
-        error => console.error('Error al obtener usuarios:', error)
-      );
-    }
-
- obtenerRoles(): void {
-    this.editarusuarioService.obtenerRoles().subscribe(
-      data => {
-        this.roles = data.filter((rol: any) => rol.id === 3 || rol.id === 4);
-      },
-      error => console.error('Error al obtener roles:', error)
-    );
-  }
-
-  seleccionarUsuario(usuario: Usuario): void {
-    this.usuarioSeleccionado = { ...usuario };
-  }
-
-  cambiarRol(event: Event, usuario: Usuario): void {
-    const target = event.target as HTMLSelectElement;
-    const nuevoRolId = +target.value;
-  
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: `Estás a punto de cambiar el rol del usuario ${usuario.nombre} a ${this.obtenerNombreRol(nuevoRolId)}.`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, cambiar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        usuario.rol_id = nuevoRolId;
-        console.log(`Rol cambiado para usuario ${usuario.nombre}: ${usuario.rol_id}`);
-        this.guardarUsuario(usuario);
-        Swal.fire(
-          '¡Cambiado!',
-          'El rol del usuario ha sido cambiado.',
-          'success'
-        );
-      } else {
-        // Restablecer el select al valor anterior si el usuario cancela
-        target.value = usuario.rol_id.toString();
-      }
-    });
-  }
-  
-  obtenerNombreRol(rolId: number): string {
-    const rol = this.roles.find(r => r.id === rolId);
-    return rol ? rol.nombre : 'Desconocido';
-  }
-  
-  guardarUsuario(usuario: Usuario): void {
-    console.log('Guardando usuario con rolId:', usuario.rol_id);
-    this.editarusuarioService.actualizarUsuario(usuario).subscribe(
-      data => {
-        console.log('Usuario actualizado:', data);
-        const index = this.usuarios.findIndex(u => u.id === data.id);
-        if (index !== -1) {
-          this.usuarios[index] = data;
-        }
-      },
-      error => console.error('Error al actualizar usuario:', error)
-    );
-  }
-
-  cancelarEdicion(): void {
-    this.usuarioSeleccionado = null;
-  }
-  toggleTabla(): void {
-    this.mostrarTabla = !this.mostrarTabla;
-  }
   getUsuarioNombrePorId(usuarioId: number): string {
     const usuario = this.usuariosnombre.find(u => u.id === usuarioId);
     return usuario ? `${usuario.nombre} ${usuario.apellido}` : 'Nombre no encontrado';
-  }  
+  }
 
 }

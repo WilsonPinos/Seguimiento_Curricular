@@ -27,7 +27,7 @@ export class LoginComponent {
     rol_id: 1
   };
 
-  constructor(private usuarioService: UsuarioService, private router: Router) {}
+  constructor(private usuarioService: UsuarioService, private router: Router) { }
 
   login() {
     this.usuarioService.obtenerListaUsuarios().subscribe(
@@ -36,7 +36,7 @@ export class LoginComponent {
         usuarios.push(this.adminUser);
 
         const usuario = usuarios.find(u => u.cedula === this.cedula && u.contrasena === this.password);
-        
+
         if (usuario) {
           // Redirigir según el rol
           GlobalState.cedula = usuario.cedula;
@@ -49,6 +49,9 @@ export class LoginComponent {
               break;
             case 3: // TUTOR
               this.router.navigate(['/tutor']);
+              break;
+            case 4: // DOCENTE
+              this.router.navigate(['/docente']);
               break;
             default:
               this.error = 'Rol no reconocido';
