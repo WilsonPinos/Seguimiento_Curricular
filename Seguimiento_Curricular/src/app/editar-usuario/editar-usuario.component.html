@@ -34,7 +34,8 @@
           <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
         </select>
       </div>
-      <button type="button" class="btn btn-primary" (click)="guardarUsuario()">Guardar</button>
+      <button type="button" class="btn btn-primary" (click)="confirmarGuardar()">Guardar</button>
+
       <button type="button" class="btn btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
     </form>
 

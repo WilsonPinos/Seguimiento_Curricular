@@ -5,20 +5,27 @@
   <form (ngSubmit)="onSubmit()" #carreraForm="ngForm" class="mb-4">
     <div class="form-group">
       <label for="nombre">Nombre:</label>
-      <input type="text" class="form-control" id="nombre" required [(ngModel)]="carrera.nombre" name="nombre">
+      <input type="text" class="form-control" id="nombre" required [(ngModel)]="carrera.nombre" name="nombre" #nombre="ngModel">
+      <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+       
+      </div>
     </div>
     <div class="form-group">
       <label for="descripcion">Descripción:</label>
-      <input type="text" class="form-control" id="descripcion" required [(ngModel)]="carrera.descripcion" name="descripcion">
+      <input type="text" class="form-control" id="descripcion" [(ngModel)]="carrera.descripcion" name="descripcion">
     </div>
     <div class="form-group">
       <label for="director">Director:</label>
-      <select class="form-control" id="director" [(ngModel)]="carrera.usuario_id" name="usuario_id">
+      <select class="form-control" id="director" required [(ngModel)]="carrera.usuario_id" name="usuario_id" #usuario_id="ngModel">
+        <option value="" disabled selected>Seleccione un director</option>
         <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.nombre }}</option>
       </select>
+      <div *ngIf="usuario_id.invalid && usuario_id.touched" class="text-danger">
+        Seleccione un director.
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing">Guardar</button>
-    <button type="submit" class="btn btn-success mr-2" *ngIf="isEditing">Actualizar</button>
+    <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing" [disabled]="!isFormValid()">Guardar</button>
+    <button type="submit" class="btn btn-success mr-2" *ngIf="isEditing" [disabled]="!isFormValid()">Actualizar</button>
     <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
   </form>
 

@@ -3,6 +3,7 @@ import { CarreraFormService } from './carrera-form.service';
 import { UsuarioService } from '../usuario-form/usuario.service';
 import { Carrera } from './carrera.model'; 
 import { Usuario } from '../usuario-form/usuario.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-carrera-form',
@@ -53,6 +54,9 @@ export class CarreraFormComponent implements OnInit {
       }
     );
   }
+  isFormValid(): boolean {
+    return this.carrera.nombre.trim().length > 0 && this.carrera.usuario_id > 0;
+  }
 
   onSubmit(): void {
     this.isLoading = true;
@@ -62,6 +66,13 @@ export class CarreraFormComponent implements OnInit {
           this.carreras.push(data);
           this.resetForm();
           this.isLoading = false;
+          // Muestra la alerta de éxito
+          Swal.fire({
+            title: 'Éxito',
+            text: 'Carrera creada',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
         },
         error => {
           console.error('Error al guardar carrera:', error);
@@ -78,6 +89,13 @@ export class CarreraFormComponent implements OnInit {
           }
           this.resetForm();
           this.isLoading = false;
+          // Muestra la alerta de éxito al actualizar
+          Swal.fire({
+            title: 'Éxito',
+            text: 'Carrera actualizada',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
         },
         error => {
           console.error('Error al actualizar carrera:', error);

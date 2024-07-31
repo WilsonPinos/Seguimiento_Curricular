@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioEditarService, Usuario, Rol } from './usuario-editar.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.component.html',
@@ -16,6 +16,49 @@ export class EditarUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerUsuarios();
     this.obtenerRoles();
+  }
+  confirmarGuardar(): void {
+    Swal.fire({
+      title: '¿Desea guardar los cambios?',
+      text: 'Asegúrese de que todos los datos sean correctos.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.validarCampos()) {
+          this.guardarUsuario();
+        }
+      }
+    });
+  }
+  validarCampos(): boolean {
+    // Validaciones para nombre, apellido y teléfono
+    if (!this.usuarioSeleccionado) {
+      return false;
+    }
+
+    const { nombre, apellido, telefono } = this.usuarioSeleccionado;
+    
+    if (!/^[a-zA-Z]+$/.test(nombre)) {
+      Swal.fire('Error', 'El nombre solo debe contener letras.', 'error');
+      return false;
+    }
+
+    if (!/^[a-zA-Z]+$/.test(apellido)) {
+      Swal.fire('Error', 'El apellido solo debe contener letras.', 'error');
+      return false;
+    }
+
+    if (!/^\d+$/.test(telefono)) {
+      Swal.fire('Error', 'El teléfono solo debe contener números.', 'error');
+      return false;
+    }
+
+    return true;
   }
 
   obtenerUsuarios(): void {
