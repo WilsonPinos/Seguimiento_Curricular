@@ -1,6 +1,9 @@
 {
   "appId": "com.example.seguimientocurricular",
   "appName": "SeguimientoCurricular",
-  "webDir": "dist/seguimiento-curricular",
-  "bundledWebRuntime": false
+  "webDir": "dist/seguimiento-curricular/browser",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "http://localhost:4200"
+  }
 }
