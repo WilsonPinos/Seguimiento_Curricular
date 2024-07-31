@@ -15,7 +15,7 @@
     <tbody>
       <tr *ngFor="let relacion of relacionactividadess">
         <td>{{ getActividadNombre(relacion.actividad_id) }}</td>
-        <td [ngClass]="{'texto-rojo': esFechaPasada(getActividadFechaEntregaMax(relacion.actividad_id))}"
+        <td [ngClass]="{'texto-rojo': esFechaPasada(getActividadFechaEntregaMax(relacion.actividad_id), relacion.pdf)}"
         >{{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}</td>
         <td>
           <button (click)="downloadFile(getActividadPdf(relacion.actividad_id))" class="btn btn-primary active mt-2">
