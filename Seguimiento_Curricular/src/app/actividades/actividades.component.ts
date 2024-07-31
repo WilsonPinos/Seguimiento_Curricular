@@ -13,6 +13,8 @@ import { ActividadRelacion } from '../actividad-relacion/actividad-relacion';
 import { ActividadRelacionService } from '../actividad-relacion/actividad-relacion.service';
 import { Usuario } from '../usuario-form/usuario.model';
 
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-actividades',
@@ -29,6 +31,8 @@ export class ActividadesComponent implements OnInit {
   roless:Roles[];
   periodos: Periodo[] = [];
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
+  @ViewChild('actividadForm', { static: false }) actividadForm: NgForm; // Add this line
+
   currentFileName: string | null = null;
   usuarios: Usuario[] = [];
   rolIdSeleccionado: number;
@@ -68,6 +72,35 @@ export class ActividadesComponent implements OnInit {
     error => console.error('Error al obtener actividades:', error)
   );
 }
+validarCampos(): boolean {
+  const nombreValido = this.actividades.nombre.trim().length >= 3 && this.actividades.nombre.trim().length <= 50;
+  const descripcionValida = this.actividades.descripcion.trim().length >= 5 && this.actividades.descripcion.trim().length <= 200;
+ // const fechaMaxValida = this.actividades.fecha_entrega_max instanceof Date && !isNaN(this.actividades.fecha_entrega_max.getTime());
+  const rolValido = this.actividades.rol_id > 0;
+  const periodoValido = this.actividades.periodo_id > 0;
+
+  if (!nombreValido) {
+    Swal.fire('Error', 'El nombre debe tener entre 3 y 50 caracteres.', 'error');
+    return false;
+  }
+  if (!descripcionValida) {
+    Swal.fire('Error', 'La descripción debe tener entre 5 y 200 caracteres.', 'error');
+    return false;
+  }
+ // if (!fechaMaxValida) {
+  //  Swal.fire('Error', 'La fecha máxima de entrega no es válida.', 'error');
+  //  return false;
+ // }
+  if (!rolValido) {
+    Swal.fire('Error', 'Debes seleccionar un rol.', 'error');
+    return false;
+  }
+  if (!periodoValido) {
+    Swal.fire('Error', 'Debes seleccionar un periodo.', 'error');
+    return false;
+  }
+  return true;
+}
 
 
   onFileChange(event: any): void {
@@ -77,6 +110,7 @@ export class ActividadesComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.validarCampos()) {
     if (!this.currentFileName?.includes("")) {
       if (!this.selectedFile) {
         Swal.fire({
@@ -106,6 +140,7 @@ export class ActividadesComponent implements OnInit {
     } else {
       this.createActividad();
     }
+  }
   }
   
   private createActividad(): void {
@@ -173,6 +208,7 @@ private updateActividadInMemory(): void {
 
 
 onUpdate(): void {
+  if (this.validarCampos()) {
   if (this.editingId === null) return;
 
   this.actividadesService.actualizarActividades(this.editingId, this.actividades).subscribe(
@@ -188,7 +224,7 @@ onUpdate(): void {
     error => console.error('Error al actualizar Actividad:', error)
   );
 }
-
+}
 
 
 onCancelEdit(): void {
