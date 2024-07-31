@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, model } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { CursoService } from './curso.service';
 import { Curso } from './curso';
 import Swal from 'sweetalert2';
@@ -7,8 +6,6 @@ import { Usuario } from '../usuario-form/usuario.model';
 import { UsuarioService } from '../usuario-form/usuario.service';
 import { Carrera } from '../carrera-form/carrera.model';
 import { CarreraFormService } from '../carrera-form/carrera-form.service';
-
-
 
 @Component({
   selector: 'app-cursos',
@@ -22,86 +19,72 @@ export class CursosComponent implements OnInit {
   isEditing: boolean = false;
   editingId: number | null = null;
 
-  usuarios: Usuario [] = [];
-  carreras: Carrera[];
+  usuarios: Usuario[] = [];
+  carreras: Carrera[] = [];
   isLoading: boolean = false;
-  errorMessage: string ='';
-
-
-  
-
-
+  errorMessage: string = '';
 
   constructor(
     private cursoService: CursoService,
-
     private usuarioService: UsuarioService,
     private carreraService: CarreraFormService
-
-
   ) { }
 
   ngOnInit(): void {
     this.obtenerCurso();
-   // this.obtenerUsuario();
     this.obtenerCarreras();
     this.obtenerUsuariosTutores();
-
-
   }
 
   obtenerCurso(): void {
-    this.cursoService.obtenerListaCurso().subscribe(data => {
-      this.cursos = data;
-    }, error => {
-      console.error("Error al recuperar cursos", error); // Manejo de errores
-    });
-  }
-
-  obtenerUsuariosTutores(): void {
-
-    this.usuarioService.obtenerUsuariostutores().subscribe(
-      data => this.usuarios =data,
+    this.cursoService.obtenerListaCurso().subscribe(
+      data => {
+        this.cursos = data;
+      },
       error => {
-
-        console.error('Error al obtener usuarios tutores',error);
-        this.errorMessage='error al obtener la lista de usuarios tutores'
-        
+        console.error('Error al recuperar cursos', error); // Manejo de errores
       }
-
     );
   }
 
-
-
+  obtenerUsuariosTutores(): void {
+    this.usuarioService.obtenerUsuariostutores().subscribe(
+      data => {
+        this.usuarios = data;
+      },
+      error => {
+        console.error('Error al obtener usuarios tutores', error);
+        this.errorMessage = 'Error al obtener la lista de usuarios tutores';
+      }
+    );
+  }
 
   onSubmit(): void {
-    console.log('onSubmit called');
     if (!this.isEditing) {
       this.cursoService.crearCurso(this.curso).subscribe(
         data => {
-          console.log('Curso creado:', data);
           this.cursos.push(data);
           this.resetForm();
         },
-        error => console.error('Error al guardar curso:', error)
+        error => {
+          console.error('Error al guardar curso:', error);
+        }
       );
     } else {
-      this.cursoService.actualizarcurso(this.editingId!, this.curso).subscribe(
+      this.cursoService.actualizarCurso(this.editingId!, this.curso).subscribe(
         data => {
-          console.log('Curso actualizado:', data);
           const index = this.cursos.findIndex(c => c.id === this.editingId);
           if (index !== -1) {
             this.cursos[index] = data;
           }
           this.resetForm();
         },
-        error => console.error('Error al actualizar curso:', error)
+        error => {
+          console.error('Error al actualizar curso:', error);
+        }
       );
     }
   }
-
-
 
   onUpdate(): void {
     this.onSubmit();
@@ -109,7 +92,6 @@ export class CursosComponent implements OnInit {
 
   onCancelEdit(): void {
     this.resetForm();
-
   }
 
   selectCursos(cursos: Curso): void {
@@ -122,25 +104,30 @@ export class CursosComponent implements OnInit {
         this.curso = { ...data };
         this.isEditing = true;
         this.editingId = cursos.id;
-
       },
-      error => console.error('Error😥 al obtener cursos para editar:', error)
+      error => {
+        console.error('Error al obtener cursos para editar:', error);
+      }
     );
   }
 
   onDelete(id: number): void {
     this.cursoService.obtenerCursoId(id).subscribe(
       data => {
-        this.cursoService.eliminarcurso(id).subscribe(
+        this.cursoService.eliminarCurso(id).subscribe(
           () => {
-            Swal.fire('Eliminado', 'el curso  ha sido eliminada.', 'success');
+            Swal.fire('Eliminado', 'El curso ha sido eliminado.', 'success');
             this.cursos = this.cursos.filter(c => c.id !== id);
             this.selectedCurso = null;
           },
-          error => Swal.fire('Error', 'No se pudo eliminar el curso.', 'error')
+          error => {
+            Swal.fire('Error', 'No se pudo eliminar el curso.', 'error');
+          }
         );
       },
-      error => Swal.fire('Error', 'No se pudo obtener el curso.', 'error')
+      error => {
+        Swal.fire('Error', 'No se pudo obtener el curso.', 'error');
+      }
     );
   }
 
@@ -149,34 +136,18 @@ export class CursosComponent implements OnInit {
     this.isEditing = false;
     this.editingId = null;
     this.selectedCurso = null;
-
-
   }
 
-  getTutorName(usuario_id:number): string{
-    const usuario =this.usuarios.find(u => u.id === usuario_id);
+  getTutorName(usuario_id: number): string {
+    const usuario = this.usuarios.find(u => u.id === usuario_id);
     return usuario ? `${usuario.nombre} ${usuario.apellido}` : 'Desconocido';
   }
 
-
-
-
-
-  //Usuario
- /*  private obtenerUsuario() {
-    this.usuarioService.obtenerListaUsuarios().subscribe(dato => {
-      this.usuarios = dato;
-    })
-  } */
-
-  //carrera 
   obtenerCarreras(): void {
-    this.carreraService.obtenerListaCarreras().subscribe(dato => {
-      this.carreras = dato;
-
-    });
-
+    this.carreraService.obtenerListaCarreras().subscribe(
+      dato => {
+        this.carreras = dato;
+      }
+    );
   }
-
-
 }

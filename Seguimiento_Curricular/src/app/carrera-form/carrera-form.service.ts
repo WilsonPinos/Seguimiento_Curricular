@@ -7,9 +7,20 @@ import { Carrera } from './carrera.model';
   providedIn: 'root'
 })
 export class CarreraFormService {
-  private baseURL = 'http://localhost:8080/api/carreras'; 
+  private baseURL: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.baseURL = this.getBaseURL();
+  }
+
+  private getBaseURL(): string {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost') {
+      return 'http://localhost:8080/api/carreras';
+    } else {
+      return 'http://192.168.0.110:8080/api/carreras';
+    }
+  }
 
   obtenerListaCarreras(): Observable<Carrera[]> {
     return this.httpClient.get<Carrera[]>(this.baseURL);
@@ -31,4 +42,3 @@ export class CarreraFormService {
     return this.httpClient.delete<void>(`${this.baseURL}/${id}`);
   }
 }
-

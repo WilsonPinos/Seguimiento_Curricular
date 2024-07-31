@@ -7,9 +7,20 @@ import { VincularPeriodoCarrera } from './vincular-periodo-carrera';
   providedIn: 'root'
 })
 export class VincularPeriodoCarreraService {
-private baseURL = 'http://localhost:8080/api/periodo_Carreras';
+  private baseURL: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.baseURL = this.getBaseUrl();
+  }
+
+  private getBaseUrl(): string {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost') {
+      return 'http://localhost:8080/api/periodo_Carreras';
+    } else {
+      return 'http://192.168.0.110:8080/api/periodo_Carreras'; // Reemplaza con la IP adecuada si es necesario
+    }
+  }
 
   obtenerListaPeriodo_carreras(): Observable<VincularPeriodoCarrera[]> {
     return this.httpClient.get<VincularPeriodoCarrera[]>(`${this.baseURL}`);

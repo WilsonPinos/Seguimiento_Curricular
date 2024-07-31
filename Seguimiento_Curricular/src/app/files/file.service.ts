@@ -6,10 +6,20 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class FileService {
+  private baseUrl: string;
 
-  private baseUrl = 'http://localhost:8080/api/files'; 
+  constructor(private http: HttpClient) {
+    this.baseUrl = this.getBaseUrl();
+  }
 
-  constructor(private http: HttpClient) { }
+  private getBaseUrl(): string {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost') {
+      return 'http://localhost:8080/api/files';
+    } else {
+      return 'http://192.168.0.110:8080/api/files'; // Reemplaza con la IP adecuada si es necesario
+    }
+  }
 
   uploadFile(file: File): Observable<any> {
     const formData = new FormData();
@@ -23,7 +33,6 @@ export class FileService {
       })
     );
   }
-  
 
   downloadFile(fileName: string): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/download/${fileName}`, { responseType: 'blob' });
@@ -38,9 +47,11 @@ export class FileService {
     a.click();
     window.URL.revokeObjectURL(url);
   }
+
   checkFileExists(fileName: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}/exists/${fileName}`);
   }
+
   deleteFile(fileName: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${fileName}`).pipe(
       catchError(error => {
@@ -48,6 +59,4 @@ export class FileService {
       })
     );
   }
-  
-  
 }

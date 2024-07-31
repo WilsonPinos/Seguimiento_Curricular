@@ -22,10 +22,22 @@ export interface Rol {
   providedIn: 'root'
 })
 export class UsuarioEditarService {
-  private baseUrl = 'http://localhost:8080/api/usuarios';
-  private rolesUrl = 'http://localhost:8080/api/roles';
+  private baseUrl: string;
+  private rolesUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.baseUrl = this.getBaseUrl('usuarios');
+    this.rolesUrl = this.getBaseUrl('roles');
+  }
+
+  private getBaseUrl(endpoint: string): string {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost') {
+      return `http://localhost:8080/api/${endpoint}`;
+    } else {
+      return `http://192.168.0.110:8080/api/${endpoint}`; // Reemplaza con la IP adecuada si es necesario
+    }
+  }
 
   // Obtener todos los usuarios
   obtenerUsuarios(): Observable<Usuario[]> {
