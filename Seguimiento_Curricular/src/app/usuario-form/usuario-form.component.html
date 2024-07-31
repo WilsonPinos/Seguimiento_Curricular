@@ -10,7 +10,7 @@
     <form (ngSubmit)="guardarUsuario()">
       <div class="mb-3">
         <label for="cedula" class="form-label">Cédula</label>
-        <input type="text" class="form-control" id="cedula" [(ngModel)]="usuario.cedula" name="cedula" required aria-required="true">
+        <input type="text" class="form-control" id="cedula" [(ngModel)]="usuario.cedula" name="cedula" required aria-required="true" pattern="\d*">
       </div>
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
@@ -36,7 +36,7 @@
         <label for="password" class="form-label">Contraseña</label>
         <input type="password" class="form-control" id="contrasena" [(ngModel)]="usuario.contrasena" name="contrasena" required aria-required="true">
       </div>
-      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isFormComplete()">Guardar</button>
     </form>
   </div>
 </div>
