@@ -13,12 +13,6 @@
       <label for="fechaFin">Fecha de Fin:</label>
       <input type="date" id="fechaFin" [(ngModel)]="periodo.fecha_fin" name="fechaFin" required>
     </div>
-    <div class="form-group">
-      <label for="carrera">Carrera:</label>
-      <select id="carrera" [(ngModel)]="periodo.carrera_id" name="carrera" required>
-        <option *ngFor="let carrera of carreras" [value]="carrera.id">{{ carrera.nombre }}</option>
-      </select>
-    </div>
     <button type="submit" class="btn btn-primary">Crear</button>
   </form>
 
