@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from './usuario.service';
 import { Usuario } from '../usuario-form/usuario.model';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-usuario-form',
@@ -20,7 +23,9 @@ export class UsuarioFormComponent {
     contrasena: '' // Inicializa el nuevo campo
   };
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService,
+    private router: Router
+  ) { }
 
   guardarUsuario(): void {
     const { rol_id, ...usuarioToSave } = this.usuario;
@@ -29,7 +34,15 @@ export class UsuarioFormComponent {
     this.usuarioService.guardarUsuario(usuarioToSave).subscribe(
       data => {
         console.log('Usuario guardado:', data);
-        this.resetForm();
+        Swal.fire({
+          title: 'Éxito',
+          text: 'Usuario creado exitosamente',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          this.resetForm();
+          this.router.navigate(['/login']);
+        });
       },
       error => {
         console.error('Error al guardar usuario:', error);
