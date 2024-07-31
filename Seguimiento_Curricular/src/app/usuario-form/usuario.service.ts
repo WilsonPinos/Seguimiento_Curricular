@@ -8,10 +8,33 @@ import { Usuario } from './usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private baseUrl = 'http://localhost:8080/api/usuarios'; // Asegúrate de que esta URL sea correcta
-  private rolesUrl = 'http://localhost:8080/api/roles'; // URL para el servicio de roles
+  private baseUrl: string;
+  private rolesUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.baseUrl = this.getBaseUrl();
+    this.rolesUrl = this.getRolesUrl();
+  }
+
+  private getBaseUrl(): string {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost') {
+      return 'http://localhost:8080/api/usuarios';
+    } else {
+      // Asume que la IP de tu PC en la red local es 192.168.0.110
+      return 'http://192.168.0.110:8080/api/usuarios';
+    }
+  }
+
+  private getRolesUrl(): string {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost') {
+      return 'http://localhost:8080/api/roles';
+    } else {
+      // Asume que la IP de tu PC en la red local es 192.168.0.110
+      return 'http://192.168.0.110:8080/api/roles';
+    }
+  }
 
   // Guardar un nuevo usuario
   guardarUsuario(usuario: Usuario): Observable<Usuario> {
@@ -41,25 +64,6 @@ export class UsuarioService {
   obtenerListaUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.baseUrl);
   }
-  obtenerIdRolDirector(): Observable<number> {
-    return this.http.get<number>(this.baseUrl);
-  }
-
- 
-
-  // Manejo de errores
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Ocurrió un error desconocido';
-    if (error.error instanceof ErrorEvent) {
-      // Error del lado del cliente
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // Error del lado del servidor
-      errorMessage = `Código de estado: ${error.status}\nMensaje: ${error.message}`;
-    }
-    return throwError(errorMessage);
-  }
-  
 
   // Obtener usuarios por rol_id
   obtenerUsuariosPorRol(rolId: number): Observable<Usuario[]> {
@@ -83,12 +87,9 @@ export class UsuarioService {
       }),
       catchError(this.handleError)
     );
-
-    
   }
 
- 
-  // Obtener usuarios que tienen el rol de "tutor"
+  // Obtener usuarios que tienen el rol de "TUTOR"
   obtenerUsuariostutores(): Observable<Usuario[]> {
     return this.obtenerRolIdPorNombre('TUTOR').pipe(
       switchMap(rolId => {
@@ -104,10 +105,24 @@ export class UsuarioService {
       catchError(this.handleError)
     );
   }
+
   obtenerUsuarioPorCedula(cedula: string): Observable<Usuario | null> {
     return this.http.get<Usuario[]>(`${this.baseUrl}?cedula=${cedula}`).pipe(
       map(usuarios => usuarios.length > 0 ? usuarios[0] : null),
       catchError(this.handleError)
     );
+  }
+
+  // Manejo de errores
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Ocurrió un error desconocido';
+    if (error.error instanceof ErrorEvent) {
+      // Error del lado del cliente
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Error del lado del servidor
+      errorMessage = `Código de estado: ${error.status}\nMensaje: ${error.message}`;
+    }
+    return throwError(errorMessage);
   }
 }
