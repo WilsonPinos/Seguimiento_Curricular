@@ -135,5 +135,16 @@ export class DocenteComponent{
     const usuario = this.usuariosnombre.find(u => u.id === usuarioId);
     return usuario ? `${usuario.nombre} ${usuario.apellido}` : 'Nombre no encontrado';
   }
+  esFechaPasada(fechaMaxima: Date | undefined): boolean {
+    if (!fechaMaxima) {
+      return false;
+    }
+    const nowLocal = new Date();
+    const offsetMinutes = nowLocal.getTimezoneOffset(); 
+    const offsetMilliseconds = offsetMinutes * 60 * 1000;
+    const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds); 
+    
+    return new Date(fechaMaxima).getTime() < nowUtc.getTime();
+  }
 
 }

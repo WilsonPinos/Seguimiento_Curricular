@@ -26,3 +26,6 @@
   background-color: #f8f9fa;
   padding: 15px;
 }
+.texto-rojo { /* CAMBIA LA FECHA MAXIMA EN ROJO SI PASA LA FECHA ACTUAL */
+  color: red;
+}
