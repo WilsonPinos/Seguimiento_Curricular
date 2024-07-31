@@ -20,7 +20,8 @@
         <td>{{ relacion.id }}</td>
         <td>{{ getActividadNombre(relacion.actividad_id) }}</td>
         <td>{{ formatFecha(getActividadFechaEntregado(relacion.actividad_id)) }}</td>
-        <td>{{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}</td>
+        <td [ngClass]="{'texto-rojo': esFechaPasada(getActividadFechaEntregaMax(relacion.actividad_id))}"
+        >{{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}</td>
         <td>
           <button (click)="downloadFile(getActividadPdf(relacion.actividad_id))" class="btn btn-primary active mt-2">
             {{getActividadPdf(relacion.actividad_id)}}
