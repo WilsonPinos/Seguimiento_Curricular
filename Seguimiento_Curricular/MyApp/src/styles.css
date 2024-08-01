@@ -1,0 +1,22 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .form-input {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .form-container {
+      padding: 10px;
+    }
+  
+    .form-input {
+      width: 100%;
+    }
+  }
+  

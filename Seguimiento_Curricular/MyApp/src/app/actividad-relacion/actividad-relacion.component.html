@@ -1,0 +1,58 @@
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Actividad</th>
+        <th>Fecha entrega</th>
+        <th>Fecha máxima</th>
+        <th>PDF de actividad</th>
+        <th>PDF Entregado</th>
+        <th>ID Actividad</th>
+        <th>ID Usuario</th>
+        <th>Observacion</th>
+        <th>Estado</th>
+        <th>Fecha de entrega</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let relacion of relacionactividadess">
+        <td>{{ relacion.id }}</td>
+        <td>{{ getActividadNombre(relacion.actividad_id) }}</td>
+        <td>{{ formatFecha(getActividadFechaEntregado(relacion.actividad_id)) }}</td>
+        <td [ngClass]="{'texto-rojo': esFechaPasada(getActividadFechaEntregaMax(relacion.actividad_id), relacion.pdf)}"
+        >{{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}</td>
+        <td>
+          <button (click)="downloadFile(getActividadPdf(relacion.actividad_id))" class="btn btn-primary active mt-2">
+            {{getActividadPdf(relacion.actividad_id)}}
+          </button>
+        </td>
+        <td>
+          <button *ngIf="!relacion.pdf" class="btn btn-danger mt-2">
+            No Entregado
+          </button>
+          <button *ngIf="relacion.pdf" (click)="downloadFile(relacion.pdf)" class="btn btn-success mt-2">
+            {{ relacion.pdf }}
+          </button>
+        </td>
+        <td>{{ relacion.actividad_id }}</td>
+        <td>{{ relacion.usuario_id }}</td>
+        <td>
+          <input *ngIf="isEditing(relacion.id)" type="text" [(ngModel)]="relacion.observacion">
+          <span *ngIf="!isEditing(relacion.id)">{{ relacion.observacion }}</span>
+        </td>
+        <td>
+          <input *ngIf="isEditing(relacion.id)" type="checkbox" [(ngModel)]="relacion.estado">
+          <span *ngIf="!isEditing(relacion.id)">
+            <input type="checkbox" [checked]="relacion.estado" disabled>
+          </span>
+        </td>
+        <td>{{ formatFecha(relacion.fecha_de_subida) }}</td>
+        <td>
+          <button *ngIf="!isEditing(relacion.id)" class="btn btn-primary me-2" (click)="edit(relacion.id)">Editar</button>
+          <button *ngIf="isEditing(relacion.id)" class="btn btn-primary me-2" (click)="save(relacion)">Guardar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

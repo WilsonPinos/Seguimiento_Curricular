@@ -1,0 +1,72 @@
+<div class="container-fluid p-0">
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1 text-white">EDITAR USUARIO</span>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h2>Usuarios</h2>
+    <form *ngIf="usuarioSeleccionado">
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" [(ngModel)]="usuarioSeleccionado.nombre" name="nombre">
+      </div>
+      <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="apellido" [(ngModel)]="usuarioSeleccionado.apellido" name="apellido">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="usuarioSeleccionado.email" name="email">
+      </div>
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" class="form-control" id="telefono" [(ngModel)]="usuarioSeleccionado.telefono" name="telefono">
+      </div>
+      <div class="mb-3">
+        <label for="fecha-nacimiento" class="form-label">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" id="fecha-nacimiento" [(ngModel)]="usuarioSeleccionado.fecha_nacimiento" name="fechaNacimiento">
+      </div>
+      <div class="mb-3">
+        <label for="rol" class="form-label">Rol</label>
+        <select class="form-control" id="rol" [(ngModel)]="usuarioSeleccionado.rol_id" name="rol">
+          <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="confirmarGuardar()">Guardar</button>
+
+      <button type="button" class="btn btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+    </form>
+
+    <h3 class="mt-5">Lista de Usuarios</h3>
+    <table class="table table-hover mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Rol</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios" (click)="seleccionarUsuario(usuario)">
+          <td>{{ usuario.id }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.apellido }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.telefono }}</td>
+          <td>{{ usuario.fecha_nacimiento | date }}</td>
+          <td>
+            <select class="form-control" [(ngModel)]="usuario.rol_id" (change)="cambiarRol($event)">
+              <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

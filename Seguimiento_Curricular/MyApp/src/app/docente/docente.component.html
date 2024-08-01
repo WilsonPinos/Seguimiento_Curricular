@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="ista.png" style="height: 40px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+      <div class="d-flex" role="search">
+        <a class="nav-link me-2" href="#">Perfil</a>
+        <a class="nav-link me-2" type="submit">Cerrar Sesión</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Actividad</th>
+      <th>Fecha máxima</th>
+      <th>PDF de actividad</th>
+      <th>PDF Entregado</th>
+      <th>Subir</th>
+      <th>ID Actividad</th>
+      <th>ID Usuario</th>
+      <th>Observacion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let relacion of relacionactividadess">
+      <td>{{ getActividadNombre(relacion.actividad_id) }}</td>
+      <td [ngClass]="{'texto-rojo': esFechaPasada(getActividadFechaEntregaMax(relacion.actividad_id), relacion.pdf)}"
+      >{{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}</td>
+      <td>
+        <button (click)="downloadFile(getActividadPdf(relacion.actividad_id))" class="btn btn-primary active mt-2">
+          {{getActividadPdf(relacion.actividad_id)}}
+        </button>
+      </td>
+      <td>
+        <button *ngIf="!relacion.pdf" class="btn btn-danger mt-2">
+          No Entregado
+        </button>
+        <button *ngIf="relacion.pdf" (click)="downloadFile(relacion.pdf)" class="btn btn-success mt-2">
+          {{ relacion.pdf }}
+        </button>
+      </td>
+      <td>
+        <input type="file" (change)="onFileSelected($event, relacion)">
+        <button *ngIf="selectedFiles[relacion.id]" (click)="uploadFile(relacion)"
+          class="btn btn-primary mt-2">Subir</button>
+      </td>
+      <td>{{ relacion.actividad_id }}</td>
+      <td>{{ getUsuarioNombrePorId(relacion.usuario_id) }}</td>
+      <td>{{ relacion.observacion }}</td>
+    </tr>
+  </tbody>
+</table>

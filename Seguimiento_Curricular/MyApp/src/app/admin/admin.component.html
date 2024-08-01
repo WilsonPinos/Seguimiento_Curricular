@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="ista.png" style="height: 40px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+      <div class="d-flex" role="search">
+        <a class="nav-link me-2" href="#">Perfil</a>
+        <a class="nav-link me-2" routerLink="/login">Cerrar Sesión</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <div class="sidebar">
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <button class="nav-link active mt-2" routerLink="/entregados" type="button">Entregados</button>
+      <button class="nav-link active mt-2" routerLink="/roles" type="button">Roles</button>
+      <button class="nav-link active mt-2" routerLink="/carreras" type="button">Carreras</button>
+      <button class="nav-link active mt-2" routerLink="/cursos" type="button">Cursos</button>
+      <button class="nav-link active mt-2" routerLink="/actividades" type="button">Actividades</button>
+      <button class="nav-link active mt-2" routerLink="/periodos" type="button">Periodos</button>
+      <button class="nav-link active mt-2" routerLink="/usuarios" type="button">Usuarios</button>
+      <button class="nav-link active mt-2" routerLink="/vincular-periodo-carrera" type="button">Vincular Periodo con Carrera</button>
+    </div>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

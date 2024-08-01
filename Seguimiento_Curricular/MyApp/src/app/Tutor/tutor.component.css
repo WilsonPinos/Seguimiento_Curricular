@@ -1,0 +1,38 @@
+.nav-link {
+    color: white;
+    text-decoration: none; 
+  }
+  /* styles.css */
+.navbar {
+  background-color: #007bff; /* Color azul de Bootstrap por defecto */
+}
+
+  
+  .nav-link:hover {
+    color: black;
+  }
+
+.main-container {
+    display: flex; 
+    height: 100vh; 
+  }
+  
+  .sidebar {
+    width: 13%;
+    background-color: rgba(180, 180, 180, 0.514);
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    padding: 15px; 
+  }
+  
+  .content {
+    flex: 1;
+    background-color: #f8f9fa;
+    padding: 15px;
+  }
+  
+  .texto-rojo { /* CAMBIA LA FECHA MAXIMA EN ROJO SI PASA LA FECHA ACTUAL */
+    color: red;
+  }
+  

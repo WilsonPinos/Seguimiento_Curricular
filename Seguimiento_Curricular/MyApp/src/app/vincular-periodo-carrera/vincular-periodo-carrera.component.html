@@ -1,0 +1,43 @@
+<form (ngSubmit)="onSubmit()" #carreraForm="ngForm">
+  <h1 style="text-align: center;">Vincular periodo con carreras</h1>
+
+  <div class="mb-3">
+    <label for="carrera" class="form-label">Carrera</label>
+    <select class="form-select" id="carrera_id" required [(ngModel)]="periodo_carreras.carrera_id" name="carrera_id">
+      <option *ngFor="let carrera of carrerass" [value]="carrera.id">{{ carrera.nombre }}</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="periodo" class="form-label">Periodo</label>
+    <select class="form-select" id="periodo_id" required [(ngModel)]="periodo_carreras.periodo_id" name="periodo_id">
+      <option *ngFor="let periodo of periodoss" [value]="periodo.id">{{ periodo.nombre }}</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing">Guardar</button>
+  <button type="button" class="btn btn-success mr-2 me-2" (click)="onUpdate()" *ngIf="isEditing">Actualizar</button>
+  <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
+</form>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Periodo</th>
+      <th>Carrera</th>
+      <th>OPCIONES</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let periodo_carreras of periodo_carrerass" [class.table-active]="periodo_carreras.id === selectedPeriodoCarreras?.id" (click)="selectPeriodoCarreras(periodo_carreras)">
+      <td>{{ periodo_carreras.id }}</td>
+      <td>{{ getPeriodoNombre(periodo_carreras.periodo_id) }}</td>
+      <td>{{ getCarreraNombre(periodo_carreras.carrera_id) }}</td>
+      <td>
+        <button class="btn btn-primary me-2" (click)="onEdit(periodo_carreras)">Editar</button>
+        <button class="btn btn-danger" (click)="onDelete(periodo_carreras.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
