@@ -1,39 +1,53 @@
-/* styles.css */
-body, html, ion-app, ion-content {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+/* Añadir este bloque CSS a tu archivo styles.css */
+
+/* Estilos para la barra de navegación */
+.navbar {
+  background-color: #007bff; /* Azul más oscuro */
+  color: white;
 }
 
+.navbar .nav-link {
+  color: white;
+}
+
+.navbar .nav-link:hover {
+  color: black;
+}
+
+/* Estilos para el contenedor principal */
 .main-container {
   display: flex;
-  flex-direction: column;
+  height: 100vh;
 }
 
+/* Estilos para la barra lateral */
 .sidebar {
-  flex: 1;
+  width: 13%;
+  background-color: #333; /* Gris oscuro */
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.sidebar .nav-link {
+  color: white;
+  background-color: transparent;
+}
+
+.sidebar .nav-link:hover {
+  color: black;
+  background-color: #555; /* Gris más claro */
+}
+
+.sidebar .nav-link.active {
+  background-color: #007bff; /* Azul */
+  color: white;
 }
 
 .content {
-  flex: 3;
-}
-
-@media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-  }
-
-  .content {
-    width: 100%;
-  }
-}
-
-.nav-pills .nav-link {
-  text-align: center;
+  flex: 1;
+  background-color: #f8f9fa; /* Gris claro */
+  padding: 15px;
 }
