@@ -22,7 +22,7 @@ export class UsuarioService {
       return 'http://localhost:8080/api/usuarios';
     } else {
       // Asume que la IP de tu PC en la red local es 192.168.0.110
-      return 'http://192.168.0.110:8080/api/usuarios';
+      return 'http://192.168.23.248:8080/api/usuarios';
     }
   }
 
@@ -32,7 +32,7 @@ export class UsuarioService {
       return 'http://localhost:8080/api/roles';
     } else {
       // Asume que la IP de tu PC en la red local es 192.168.0.110
-      return 'http://192.168.0.110:8080/api/roles';
+      return 'http://192.168.23.248:8080/api/roles';
     }
   }
 

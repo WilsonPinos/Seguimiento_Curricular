@@ -20,7 +20,7 @@ export class CursoService {
       return 'http://localhost:8080/api/cursos';
     } else {
       // Asume que la IP de tu PC en la red local es 192.168.0.110
-      return 'http://192.168.0.110:8080/api/cursos';
+      return 'http://192.168.23.248:8080/api/cursos';
     }
   }
 

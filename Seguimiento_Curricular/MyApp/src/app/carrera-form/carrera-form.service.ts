@@ -18,7 +18,7 @@ export class CarreraFormService {
     if (hostname === 'localhost') {
       return 'http://localhost:8080/api/carreras';
     } else {
-      return 'http://192.168.0.110:8080/api/carreras';
+      return 'http://192.168.23.248:8080/api/carreras';
     }
   }
 

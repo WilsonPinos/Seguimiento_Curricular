@@ -18,7 +18,7 @@ export class RolesService {
     if (hostname === 'localhost') {
       return 'http://localhost:8080/api/roles';
     } else {
-      return 'http://192.168.0.110:8080/api/roles'; // Reemplaza con la IP adecuada si es necesario
+      return 'http://192.168.23.248:8080/api/roles'; // Reemplaza con la IP adecuada si es necesario
     }
   }
 
