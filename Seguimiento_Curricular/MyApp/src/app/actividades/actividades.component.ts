@@ -217,7 +217,6 @@ onUpdate(): void {
       console.log('Actividad actualizada:', data);
       // Actualiza en memoria
       this.updateActividadInMemory();
-      // Obtén las actividades nuevamente desde el backend para asegurarte de que están actualizadas
       this.obtenerActividades();
       this.resetForm();
       this.currentFileName = null;

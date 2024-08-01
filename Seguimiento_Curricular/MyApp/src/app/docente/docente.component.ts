@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { GlobalState } from '../login/GlobalState';
 import { UsuarioService } from '../usuario-form/usuario.service';
 import { UsuarioEditarService, Usuario, Rol } from '../editar-usuario/usuario-editar.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-docente',
@@ -106,13 +107,28 @@ export class DocenteComponent{
           relacion.pdf = file.name;
           relacion.estado = true;
           const nowLocal = new Date();
-          const offsetMinutes = nowLocal.getTimezoneOffset();
+          const offsetMinutes = nowLocal.getTimezoneOffset(); 
           const offsetMilliseconds = offsetMinutes * 60 * 1000;
-          const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds);
+          const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds); 
           relacion.fecha_de_subida = nowUtc;
           this.save(relacion);
         },
-        error => console.error('Error uploading file', error)
+        error => {
+          console.error('Error uploading file', error);
+          if (error.status === 409) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un error',
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Ese archivo ya existe en el servidor',
+            });
+          }
+        }
       );
     }
   }

@@ -111,15 +111,30 @@ export class DirectorComponent {
       this.fileService.uploadFile(file).subscribe(
         response => {
           relacion.pdf = file.name;
-        relacion.estado = true;
-        const nowLocal = new Date();
-        const offsetMinutes = nowLocal.getTimezoneOffset(); 
-        const offsetMilliseconds = offsetMinutes * 60 * 1000;
-        const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds); 
-        relacion.fecha_de_subida = nowUtc;
-        this.save(relacion);
+          relacion.estado = true;
+          const nowLocal = new Date();
+          const offsetMinutes = nowLocal.getTimezoneOffset(); 
+          const offsetMilliseconds = offsetMinutes * 60 * 1000;
+          const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds); 
+          relacion.fecha_de_subida = nowUtc;
+          this.save(relacion);
         },
-        error => console.error('Error uploading file', error)
+        error => {
+          console.error('Error uploading file', error);
+          if (error.status === 409) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un error',
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Ese archivo ya existe en el servidor',
+            });
+          }
+        }
       );
     }
   }

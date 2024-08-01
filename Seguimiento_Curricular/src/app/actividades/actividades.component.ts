@@ -131,11 +131,19 @@ validarCampos(): boolean {
           this.createActividad();
         },
         error => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'A file with the same name already exists. Please choose a different file.'
-          });
+          if (error.message === 'File with the same name already exists.') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un error.'
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'El archivo ya existe en la base'
+            });
+          }
         }
       );
     } else {
@@ -217,7 +225,7 @@ onUpdate(): void {
       console.log('Actividad actualizada:', data);
       // Actualiza en memoria
       this.updateActividadInMemory();
-      // Obtén las actividades nuevamente desde el backend para asegurarte de que están actualizadas
+
       this.obtenerActividades();
       this.resetForm();
       this.currentFileName = null;
@@ -318,10 +326,13 @@ onCancelEdit(): void {
 
 
   //roles
-  private obtenerRoles(){
-    this.RolesService.obtenerListaRoles().subscribe(dato =>{
-      this.roless = dato;
-    })
+  private obtenerRoles(): void {
+    this.RolesService.obtenerListaRoles().subscribe(
+      dato => {
+        this.roless = dato.filter(rol => [2, 3, 4].includes(rol.id));
+      },
+      error => console.error('Error al obtener roles:', error)
+    );
   }
   //periodos
   loadPeriodos(): void {
