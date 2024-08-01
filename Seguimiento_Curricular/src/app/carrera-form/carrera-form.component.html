@@ -7,7 +7,7 @@
       <label for="nombre">Nombre:</label>
       <input type="text" class="form-control" id="nombre" required [(ngModel)]="carrera.nombre" name="nombre" #nombre="ngModel">
       <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
-       
+        El nombre es requerido.
       </div>
     </div>
     <div class="form-group">
@@ -27,6 +27,7 @@
     <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing" [disabled]="!isFormValid()">Guardar</button>
     <button type="submit" class="btn btn-success mr-2" *ngIf="isEditing" [disabled]="!isFormValid()">Actualizar</button>
     <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
+    <button type="button" class="btn btn-secondary mt-2" (click)="goBack()">Regresar</button>
   </form>
 
   <table class="table table-striped">

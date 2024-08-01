@@ -29,9 +29,7 @@
   <button type="submit" class="btn btn-primary mr-2" *ngIf="!isEditing">Guardar</button>
   <button type="button" class="btn btn-success mr-2" (click)="onUpdate()" *ngIf="isEditing">Actualizar</button>
   <button type="button" class="btn btn-secondary" (click)="onCancelEdit()" *ngIf="isEditing">Cancelar</button>
-
-
-
+  <button type="button" class="btn btn-secondary" (click)="goBack()">Regresar</button>
 </form>
 <table class="table table-striped">
   <thead class="thead-dark">

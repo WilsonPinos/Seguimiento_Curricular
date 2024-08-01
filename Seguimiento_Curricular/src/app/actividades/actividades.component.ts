@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Actividades } from './actividades';
 import { ActividadesService } from './actividades.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { FileService } from '../files/file.service';
 import Swal from 'sweetalert2';
 import { Roles } from '../roles/roles';
@@ -45,7 +45,8 @@ export class ActividadesComponent implements OnInit {
     private RolesService:RolesService,
     private periodoService: PeriodoService,
     private usuarioService: UsuarioService,
-    private actividadRelacionService: ActividadRelacionService
+    private actividadRelacionService: ActividadRelacionService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -337,5 +338,7 @@ onCancelEdit(): void {
       error => Swal.fire('Error', 'No se pudo eliminar el archivo.', 'error')
     );
   }
-  
+  goBack(): void {
+    this.location.back();
+  }
 }

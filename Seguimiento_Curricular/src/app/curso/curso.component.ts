@@ -7,6 +7,7 @@ import { Usuario } from '../usuario-form/usuario.model';
 import { UsuarioService } from '../usuario-form/usuario.service';
 import { Carrera } from '../carrera-form/carrera.model';
 import { CarreraFormService } from '../carrera-form/carrera-form.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cursos',
@@ -30,7 +31,8 @@ export class CursosComponent implements OnInit {
   constructor(
     private cursoService: CursoService,
     private usuarioService: UsuarioService,
-    private carreraService: CarreraFormService
+    private carreraService: CarreraFormService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -162,5 +164,9 @@ export class CursosComponent implements OnInit {
       },
       error => console.error('Error al obtener carreras:', error)
     );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
