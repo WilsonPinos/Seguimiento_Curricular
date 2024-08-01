@@ -4,6 +4,7 @@ import { UsuarioService } from '../usuario-form/usuario.service';
 import { Carrera } from './carrera.model'; 
 import { Usuario } from '../usuario-form/usuario.model';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common'; // Importa Location para navegar hacia atrás
 
 @Component({
   selector: 'app-carrera-form',
@@ -22,7 +23,8 @@ export class CarreraFormComponent implements OnInit {
 
   constructor(
     private carreraService: CarreraFormService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private location: Location // Inyecta Location para navegar hacia atrás
   ) { }
 
   ngOnInit(): void {
@@ -161,5 +163,9 @@ export class CarreraFormComponent implements OnInit {
     this.editingId = null;
     this.selectedCarrera = null;
     this.errorMessage = '';
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

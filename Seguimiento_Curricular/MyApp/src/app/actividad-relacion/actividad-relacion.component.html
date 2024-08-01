@@ -1,4 +1,13 @@
-<table class="table table-bordered">
+<div class="container mt-5">
+  <button class="btn btn-secondary mb-3" (click)="goBack()">Regresar</button>
+  <h1>Actividades Relacionadas</h1>
+
+  <!-- Gráfico de barras -->
+  <div>
+    <canvas #barCanvas></canvas>
+  </div>
+
+  <table class="table table-bordered mt-5">
     <thead>
       <tr>
         <th>ID</th>
@@ -9,7 +18,7 @@
         <th>PDF Entregado</th>
         <th>ID Actividad</th>
         <th>ID Usuario</th>
-        <th>Observacion</th>
+        <th>Observación</th>
         <th>Estado</th>
         <th>Fecha de entrega</th>
         <th>Opciones</th>
@@ -20,11 +29,12 @@
         <td>{{ relacion.id }}</td>
         <td>{{ getActividadNombre(relacion.actividad_id) }}</td>
         <td>{{ formatFecha(getActividadFechaEntregado(relacion.actividad_id)) }}</td>
-        <td [ngClass]="{'texto-rojo': esFechaPasada(getActividadFechaEntregaMax(relacion.actividad_id), relacion.pdf)}"
-        >{{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}</td>
+        <td [ngClass]="{'texto-rojo': esFechaPasada(getActividadFechaEntregaMax(relacion.actividad_id), relacion.pdf)}">
+          {{ formatFecha(getActividadFechaEntregaMax(relacion.actividad_id)) }}
+        </td>
         <td>
           <button (click)="downloadFile(getActividadPdf(relacion.actividad_id))" class="btn btn-primary active mt-2">
-            {{getActividadPdf(relacion.actividad_id)}}
+            {{ getActividadPdf(relacion.actividad_id) }}
           </button>
         </td>
         <td>
@@ -55,4 +65,4 @@
       </tr>
     </tbody>
   </table>
-  
+</div>

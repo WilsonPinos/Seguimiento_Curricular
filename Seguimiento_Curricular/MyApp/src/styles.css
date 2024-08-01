@@ -1,22 +1,39 @@
-.form-container {
-    display: flex;
+/* styles.css */
+body, html, ion-app, ion-content {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+.content {
+  flex: 3;
+}
+
+@media (max-width: 768px) {
+  .main-container {
     flex-direction: column;
-    padding: 20px;
+  }
+
+  .sidebar {
     width: 100%;
   }
-  
-  .form-input {
-    margin-bottom: 10px;
+
+  .content {
     width: 100%;
   }
-  
-  @media only screen and (max-width: 600px) {
-    .form-container {
-      padding: 10px;
-    }
-  
-    .form-input {
-      width: 100%;
-    }
-  }
-  
+}
+
+.nav-pills .nav-link {
+  text-align: center;
+}

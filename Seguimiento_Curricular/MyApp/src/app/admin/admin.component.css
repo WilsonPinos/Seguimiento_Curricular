@@ -1,29 +1,63 @@
+/* Estilos para la barra de navegación */
 .nav-link {
-    color: white;
-    text-decoration: none; 
-  }
-  
-  .nav-link:hover {
-    color: black;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: black;
+}
+
+/* Estilos para el contenedor principal */
+.main-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Estilos para la barra lateral */
+.sidebar {
+  width: 100%;
+  background-color: rgba(180, 180, 180, 0.514);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+/* Estilos para el contenido */
+.content {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 15px;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 992px) {
+  .sidebar {
+    display: none;
   }
 
-.main-container {
-    display: flex; 
-    height: 100vh; 
+  .navbar-toggler {
+    display: block;
   }
-  
-  .sidebar {
-    width: 13%;
-    background-color: rgba(180, 180, 180, 0.514);
-    height: 100%; 
-    display: flex;
+
+  .navbar-collapse {
+    display: flex !important;
     flex-direction: column;
-    padding: 15px; 
+    align-items: flex-start;
   }
-  
-  .content {
-    flex: 1;
-    background-color: #f8f9fa;
-    padding: 15px;
+
+  .navbar-nav {
+    width: 100%;
   }
-  
+
+  .navbar-nav .nav-item {
+    width: 100%;
+    text-align: left;
+  }
+
+  .navbar-nav .nav-link {
+    width: 100%;
+    padding: 10px 20px;
+  }
+}

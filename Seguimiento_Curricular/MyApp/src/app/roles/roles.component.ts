@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Location } from '@angular/common';
 import { Roles } from './roles';
 import { RolesService } from './roles.service';
 import Swal from 'sweetalert2';
@@ -18,7 +19,7 @@ export class RolesComponent implements OnInit {
   isEditing: boolean = false;
   editingId: number | null = null;
 
-  constructor(private rolesService: RolesService) { }
+  constructor(private rolesService: RolesService, private location: Location) { }
 
   ngOnInit(): void {
     this.obtenerRoles();
@@ -38,12 +39,12 @@ export class RolesComponent implements OnInit {
     const descripcionValida = this.roles.descripcion.trim().length >= 5 && this.roles.descripcion.trim().length <= 200;
     
     if (!nombreValido) {
-      Swal.fire('Error', 'El nombre debe tener mas de 3 hasta 50 caracteres.', 'error');
+      Swal.fire('Error', 'El nombre debe tener más de 3 hasta 50 caracteres.', 'error');
       return false;
     }
     
     if (!descripcionValida) {
-      Swal.fire('Error', 'la descripcion debe ser mas de 3 hasta 50 caracteres.', 'error');
+      Swal.fire('Error', 'La descripción debe tener más de 5 hasta 200 caracteres.', 'error');
       return false;
     }
 
@@ -125,5 +126,10 @@ export class RolesComponent implements OnInit {
       const control = this.carreraForm.control.get(field);
       control?.markAsTouched({ onlySelf: true });
     });
+  }
+
+  goBack(): void {
+    this.resetForm();
+    this.location.back();
   }
 }

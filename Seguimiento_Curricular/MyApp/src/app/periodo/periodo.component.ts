@@ -3,6 +3,7 @@ import { PeriodoService } from './periodo.service';
 import { CarreraFormService } from '../carrera-form/carrera-form.service';
 import { Periodo } from './periodo.model';
 import { Carrera } from '../carrera-form/carrera.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-periodo',
@@ -16,7 +17,8 @@ export class PeriodoComponent implements OnInit {
 
   constructor(
     private periodoService: PeriodoService, 
-    private carreraService: CarreraFormService
+    private carreraService: CarreraFormService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class PeriodoComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Submitting period');
     if (this.periodo.id !== undefined) {
       this.periodoService.updatePeriodo(this.periodo.id, this.periodo).subscribe(() => {
         this.loadPeriodos();
@@ -59,5 +62,9 @@ export class PeriodoComponent implements OnInit {
     this.periodoService.deletePeriodo(id).subscribe(() => {
       this.loadPeriodos();
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

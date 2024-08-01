@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioEditarService, Usuario, Rol } from './usuario-editar.service';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.component.html',
@@ -11,12 +13,13 @@ export class EditarUsuarioComponent implements OnInit {
   roles: Rol[] = [];
   usuarioSeleccionado: Usuario | null = null;
 
-  constructor(private usuarioService: UsuarioEditarService) { }
+  constructor(private usuarioService: UsuarioEditarService, private location: Location) { }
 
   ngOnInit(): void {
     this.obtenerUsuarios();
     this.obtenerRoles();
   }
+
   confirmarGuardar(): void {
     Swal.fire({
       title: '¿Desea guardar los cambios?',
@@ -35,8 +38,8 @@ export class EditarUsuarioComponent implements OnInit {
       }
     });
   }
+
   validarCampos(): boolean {
-    // Validaciones para nombre, apellido y teléfono
     if (!this.usuarioSeleccionado) {
       return false;
     }
@@ -81,7 +84,7 @@ export class EditarUsuarioComponent implements OnInit {
 
   guardarUsuario(): void {
     if (this.usuarioSeleccionado) {
-      console.log('Guardando usuario con rolId:', this.usuarioSeleccionado.rol_id); // Verifica que el rolId esté presente
+      console.log('Guardando usuario con rolId:', this.usuarioSeleccionado.rol_id);
       this.usuarioService.actualizarUsuario(this.usuarioSeleccionado).subscribe(
         data => {
           console.log('Usuario actualizado:', data);
@@ -99,12 +102,16 @@ export class EditarUsuarioComponent implements OnInit {
   cambiarRol(event: Event): void {
     if (this.usuarioSeleccionado) {
       const target = event.target as HTMLSelectElement;
-      this.usuarioSeleccionado.rol_id = +target.value; // Convierte el valor a número
+      this.usuarioSeleccionado.rol_id = +target.value;
       console.log(`Rol cambiado para usuario ${this.usuarioSeleccionado.nombre}: ${this.usuarioSeleccionado.rol_id}`);
     }
   }
 
   cancelarEdicion(): void {
     this.usuarioSeleccionado = null;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

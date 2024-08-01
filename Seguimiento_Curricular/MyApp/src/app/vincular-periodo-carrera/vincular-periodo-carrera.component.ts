@@ -5,6 +5,7 @@ import { Carrera } from '../carrera-form/carrera.model';
 import { PeriodoService } from '../periodo/periodo.service';
 import { CarreraFormService } from '../carrera-form/carrera-form.service';
 import { VincularPeriodoCarrera } from './vincular-periodo-carrera';
+import { Location } from '@angular/common'; // Importa Location
 
 @Component({
   selector: 'app-vincular-periodo-carrera',
@@ -19,9 +20,11 @@ export class VincularPeriodoCarreraComponent implements OnInit {
   selectedPeriodoCarreras: VincularPeriodoCarrera | null = null;
   isEditing: boolean = false;
 
-  constructor(private vincularPeriodoCarreraService: VincularPeriodoCarreraService,
+  constructor(
+    private vincularPeriodoCarreraService: VincularPeriodoCarreraService,
     private periodoService: PeriodoService,
-    private carreraFormService: CarreraFormService
+    private carreraFormService: CarreraFormService,
+    private location: Location // Agrega Location al constructor
   ) {}
 
   ngOnInit() {
@@ -35,16 +38,19 @@ export class VincularPeriodoCarreraComponent implements OnInit {
       this.periodo_carrerass = dato;
     });
   }
+
   private obtenerPeriodos(): void {
     this.periodoService.getPeriodos().subscribe(dato => {
       this.periodoss = dato;
     });
   }
+
   private obtenerCarreras(): void {
     this.carreraFormService.obtenerListaCarreras().subscribe(dato => {
       this.carrerass = dato;
     });
   }
+
   selectPeriodoCarreras(vincularPeriodoCarrera: VincularPeriodoCarrera): void {
     this.selectedPeriodoCarreras = vincularPeriodoCarrera;
   }
@@ -97,5 +103,9 @@ export class VincularPeriodoCarreraComponent implements OnInit {
   getCarreraNombre(id: number): string {
     const carrera = this.carrerass.find(c => c.id === id);
     return carrera ? carrera.nombre ?? 'Desconocido' : 'Desconocido';
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

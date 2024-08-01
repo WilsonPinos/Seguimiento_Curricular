@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActividadRelacionService } from './actividad-relacion.service';
 import { ActividadRelacion } from './actividad-relacion';
 import { DatePipe } from '@angular/common';
 import { FileService } from '../files/file.service';
 import { ActividadesService } from '../actividades/actividades.service';
 import { Actividades } from '../actividades/actividades';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-actividad-relacion',
@@ -12,6 +14,9 @@ import { Actividades } from '../actividades/actividades';
   styleUrls: ['./actividad-relacion.component.css']
 })
 export class ActividadRelacionComponent implements OnInit {
+  @ViewChild('barCanvas') barCanvas: ElementRef;
+  barChart: any;
+
   relacionactividadess: ActividadRelacion[] = [];
   actividadess: Actividades[] = [];
   editingId: number | null = null;
@@ -20,7 +25,8 @@ export class ActividadRelacionComponent implements OnInit {
     private actividadRelacionService: ActividadRelacionService,
     private fileService: FileService,
     private datePipe: DatePipe,
-    private actividadesService: ActividadesService
+    private actividadesService: ActividadesService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -31,12 +37,51 @@ export class ActividadRelacionComponent implements OnInit {
   private obtenerActividades(): void {
     this.actividadesService.obtenerListaActividades().subscribe(dato => {
       this.actividadess = dato;
+      this.updateChartData();
     });
   }
 
   private obtenerActividadesRelacion(): void {
     this.actividadRelacionService.obtenerListaActividadesRelacion().subscribe(dato => {
       this.relacionactividadess = dato;
+      this.updateChartData();
+    });
+  }
+
+  private updateChartData(): void {
+    const actividadSubidasCount = this.actividadess.reduce((acc: { [key: string]: number }, actividad) => {
+      acc[actividad.nombre] = (acc[actividad.nombre] || 0) + 1;
+      return acc;
+    }, {});
+
+    const labels = Object.keys(actividadSubidasCount);
+    const data = Object.values(actividadSubidasCount);
+
+    if (this.barChart) {
+      this.barChart.destroy();
+    }
+
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Actividades Subidas',
+            data: data,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
     });
   }
 
@@ -60,7 +105,6 @@ export class ActividadRelacionComponent implements OnInit {
     }
     return this.datePipe.transform(date, 'dd/MM/yyyy HH:mm', 'UTC') || '';
   }
-
 
   getActividadNombre(id: number): string {
     const actividad = this.actividadess.find(a => a.id === id);
@@ -99,21 +143,25 @@ export class ActividadRelacionComponent implements OnInit {
       error => console.error('Error updating relacion actividad', error)
     );
   }
+
   esFechaPasada(fechaMaxima: Date | undefined, pdf: string | undefined): boolean {
     if (pdf) {
       return false;
     }
-  
+
     if (!fechaMaxima) {
       return false;
     }
-  
+
     const nowLocal = new Date();
     const offsetMinutes = nowLocal.getTimezoneOffset();
     const offsetMilliseconds = offsetMinutes * 60 * 1000;
     const nowUtc = new Date(nowLocal.getTime() - offsetMilliseconds);
-  
+
     return new Date(fechaMaxima).getTime() < nowUtc.getTime();
   }
-}
 
+  goBack(): void {
+    this.location.back();
+  }
+}
